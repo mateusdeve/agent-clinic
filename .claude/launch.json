@@ -1,0 +1,29 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "WhatsApp API (FastAPI + Uvicorn)",
+      "runtimeExecutable": ".venv/bin/uvicorn",
+      "runtimeArgs": ["src.api.webhook:app", "--host", "0.0.0.0", "--port", "8000", "--reload"],
+      "port": 8000
+    },
+    {
+      "name": "Sofia CLI (terminal interativo)",
+      "runtimeExecutable": ".venv/bin/python",
+      "runtimeArgs": ["main.py"],
+      "port": null
+    },
+    {
+      "name": "Carla CLI (revisora standalone)",
+      "runtimeExecutable": ".venv/bin/python",
+      "runtimeArgs": ["main_carla.py"],
+      "port": null
+    },
+    {
+      "name": "ngrok tunnel (expor porta 8000)",
+      "runtimeExecutable": "ngrok",
+      "runtimeArgs": ["http", "8000"],
+      "port": 4040
+    }
+  ]
+}
