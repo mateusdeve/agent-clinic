@@ -12,7 +12,7 @@ MedIA is built in six phases that respect hard data dependencies. Foundation and
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation** - Next.js project, design system, and public landing page
+- [x] **Phase 1: Foundation** - Next.js project, design system, and public landing page (completed 2026-03-29)
 - [ ] **Phase 2: Auth + Multi-Tenancy** - Login, JWT, roles, tenant isolation, backend API layer
 - [ ] **Phase 3: Core CRUD** - Patients, doctors, appointments, and user management
 - [ ] **Phase 4: WhatsApp Panel** - Real-time inbox, conversation history, and human takeover
@@ -35,7 +35,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 Plans:
 - [x] 01-01-PLAN.md — Scaffold Next.js project, Tailwind 4 design tokens, shadcn init, route groups
 - [x] 01-02-PLAN.md — Build all 8 landing page section components with WhatsApp CTAs
-- [ ] 01-03-PLAN.md — Responsive audit at 900px breakpoint and visual verification
+- [x] 01-03-PLAN.md — Responsive audit at 900px breakpoint and visual verification
 **UI hint**: yes
 
 ### Phase 2: Auth + Multi-Tenancy
@@ -106,7 +106,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 2/3 | In Progress|  |
+| 1. Foundation | 3/3 | Complete   | 2026-03-29 |
 | 2. Auth + Multi-Tenancy | 0/TBD | Not started | - |
 | 3. Core CRUD | 0/TBD | Not started | - |
 | 4. WhatsApp Panel | 0/TBD | Not started | - |
