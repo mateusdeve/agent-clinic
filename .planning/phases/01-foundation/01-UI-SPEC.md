@@ -62,6 +62,16 @@ Declared values (multiples of 4):
 | 2xl | 48px | Stats section vertical padding (mobile) |
 | 3xl | 64px | Not used in Phase 1 |
 
+### Exceptions
+
+The following values appear in the section-level padding table. All are multiples of 4 but fall outside the standard set {4, 8, 16, 24, 32, 48, 64}. They are **approved exceptions for section-level vertical padding only**, extracted verbatim from `site.html` as the source of truth. Executors must use these exact values and must not round them to the nearest standard token.
+
+| Value | Justification |
+|-------|---------------|
+| 60px | Section vertical padding — extracted verbatim from site.html; multiple of 4 |
+| 80px | Section vertical padding — extracted verbatim from site.html; multiple of 4 |
+| 100px | Section vertical padding — extracted verbatim from site.html; multiple of 4 |
+
 Section-level padding (desktop → mobile):
 
 | Section | Desktop | Mobile |
@@ -115,7 +125,7 @@ Four font sizes, two weights — no exceptions.
 | Text muted | #9aaa9e | gray-400 | Placeholder text, form note, typing indicator dots |
 | Border default | #e8ece9 | gray-200 | Card borders, input borders, nav bottom border, chat divider |
 | Star accent | #f4c245 | — (hardcoded) | Testimonial stars only |
-| Destructive | #e55555 | — (inline only) | Input border-color on invalid email (transient, not a component state) |
+| Destructive | #e55555 | — (inline only) | Reserved for future phases — not used in Phase 1. (Phase 1 has no email form; the email input from site.html was replaced by WhatsApp CTA per CONTEXT.md decision.) |
 
 **Accent reserved for:** Primary CTA button, step number circles, nav CTA button, user-sent chat bubble background, agent online status indicator, `<em>` italic text in headings, stat numbers in dark section, "IA Ativa" badge.
 
@@ -285,6 +295,8 @@ All copy is in pt-BR (Brazilian Portuguese).
 | shadcn official | button | not required — official registry |
 
 No third-party registries. Only `npx shadcn@latest add button` from the official registry.
+
+**Executor note:** `npx shadcn@latest init` must be the first task in Wave 0, before any component is added or any import from `@/components/ui` is written. Running `add button` before `init` will fail silently.
 
 ---
 
