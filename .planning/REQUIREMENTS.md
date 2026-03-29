@@ -140,69 +140,69 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| LAND-01 | Pending | Pending |
-| LAND-02 | Pending | Pending |
-| LAND-03 | Pending | Pending |
-| LAND-04 | Pending | Pending |
-| AUTH-01 | Pending | Pending |
-| AUTH-02 | Pending | Pending |
-| AUTH-03 | Pending | Pending |
-| AUTH-04 | Pending | Pending |
-| AUTH-05 | Pending | Pending |
-| AUTH-06 | Pending | Pending |
-| TENANT-01 | Pending | Pending |
-| TENANT-02 | Pending | Pending |
-| TENANT-03 | Pending | Pending |
-| DASH-01 | Pending | Pending |
-| DASH-02 | Pending | Pending |
-| DASH-03 | Pending | Pending |
-| DASH-04 | Pending | Pending |
-| AGENDA-01 | Pending | Pending |
-| AGENDA-02 | Pending | Pending |
-| AGENDA-03 | Pending | Pending |
-| AGENDA-04 | Pending | Pending |
-| AGENDA-05 | Pending | Pending |
-| AGENDA-06 | Pending | Pending |
-| AGENDA-07 | Pending | Pending |
-| PAT-01 | Pending | Pending |
-| PAT-02 | Pending | Pending |
-| PAT-03 | Pending | Pending |
-| PAT-04 | Pending | Pending |
-| PAT-05 | Pending | Pending |
-| WPP-01 | Pending | Pending |
-| WPP-02 | Pending | Pending |
-| WPP-03 | Pending | Pending |
-| WPP-04 | Pending | Pending |
-| WPP-05 | Pending | Pending |
-| WPP-06 | Pending | Pending |
-| WPP-07 | Pending | Pending |
-| WPP-08 | Pending | Pending |
-| WPP-09 | Pending | Pending |
-| WPP-10 | Pending | Pending |
-| WPP-11 | Pending | Pending |
-| WPP-12 | Pending | Pending |
-| WPP-13 | Pending | Pending |
-| WPP-14 | Pending | Pending |
-| WPP-15 | Pending | Pending |
-| WPP-16 | Pending | Pending |
-| DOC-01 | Pending | Pending |
-| DOC-02 | Pending | Pending |
-| DOC-03 | Pending | Pending |
-| USER-01 | Pending | Pending |
-| USER-02 | Pending | Pending |
-| USER-03 | Pending | Pending |
-| USER-04 | Pending | Pending |
-| USER-05 | Pending | Pending |
-| API-01 | Pending | Pending |
-| API-02 | Pending | Pending |
-| API-03 | Pending | Pending |
-| API-04 | Pending | Pending |
+| LAND-01 | Phase 1 | Pending |
+| LAND-02 | Phase 1 | Pending |
+| LAND-03 | Phase 1 | Pending |
+| LAND-04 | Phase 1 | Pending |
+| AUTH-01 | Phase 2 | Pending |
+| AUTH-02 | Phase 2 | Pending |
+| AUTH-03 | Phase 2 | Pending |
+| AUTH-04 | Phase 2 | Pending |
+| AUTH-05 | Phase 2 | Pending |
+| AUTH-06 | Phase 2 | Pending |
+| TENANT-01 | Phase 2 | Pending |
+| TENANT-02 | Phase 2 | Pending |
+| TENANT-03 | Phase 2 | Pending |
+| API-02 | Phase 2 | Pending |
+| API-03 | Phase 2 | Pending |
+| AGENDA-01 | Phase 3 | Pending |
+| AGENDA-02 | Phase 3 | Pending |
+| AGENDA-03 | Phase 3 | Pending |
+| AGENDA-04 | Phase 3 | Pending |
+| AGENDA-05 | Phase 3 | Pending |
+| AGENDA-06 | Phase 3 | Pending |
+| AGENDA-07 | Phase 3 | Pending |
+| PAT-01 | Phase 3 | Pending |
+| PAT-02 | Phase 3 | Pending |
+| PAT-03 | Phase 3 | Pending |
+| PAT-04 | Phase 3 | Pending |
+| PAT-05 | Phase 3 | Pending |
+| DOC-01 | Phase 3 | Pending |
+| DOC-02 | Phase 3 | Pending |
+| DOC-03 | Phase 3 | Pending |
+| USER-01 | Phase 3 | Pending |
+| USER-02 | Phase 3 | Pending |
+| USER-03 | Phase 3 | Pending |
+| USER-04 | Phase 3 | Pending |
+| USER-05 | Phase 3 | Pending |
+| API-01 | Phase 3 | Pending |
+| WPP-01 | Phase 4 | Pending |
+| WPP-02 | Phase 4 | Pending |
+| WPP-03 | Phase 4 | Pending |
+| WPP-04 | Phase 4 | Pending |
+| WPP-05 | Phase 4 | Pending |
+| WPP-06 | Phase 4 | Pending |
+| WPP-07 | Phase 4 | Pending |
+| WPP-08 | Phase 4 | Pending |
+| WPP-09 | Phase 4 | Pending |
+| WPP-10 | Phase 4 | Pending |
+| WPP-11 | Phase 4 | Pending |
+| API-04 | Phase 4 | Pending |
+| DASH-01 | Phase 5 | Pending |
+| DASH-02 | Phase 5 | Pending |
+| DASH-03 | Phase 5 | Pending |
+| DASH-04 | Phase 5 | Pending |
+| WPP-12 | Phase 5 | Pending |
+| WPP-13 | Phase 5 | Pending |
+| WPP-14 | Phase 5 | Pending |
+| WPP-15 | Phase 5 | Pending |
+| WPP-16 | Phase 5 | Pending |
 
 **Coverage:**
-- v1 requirements: 52 total
-- Mapped to phases: 0
-- Unmapped: 52
+- v1 requirements: 57 total
+- Mapped to phases: 57
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-29*
-*Last updated: 2026-03-29 after initial definition*
+*Last updated: 2026-03-29 — traceability mapped after roadmap creation*
