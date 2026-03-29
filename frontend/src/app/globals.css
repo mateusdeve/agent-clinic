@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+  /* Green palette (from site.html :root) */
+  --color-green-50: #edf7f0;
+  --color-green-100: #d0edd8;
+  --color-green-400: #4caf7d;
+  --color-green-500: #2e9e60;
+  --color-green-600: #1e7d48;
+  --color-green-900: #0d2e1a;
+
+  /* Neutral palette (from site.html :root) */
+  --color-off-white: #f5f7f5;
+  --color-gray-200: #e8ece9;
+  --color-gray-400: #9aaa9e;
+  --color-gray-600: #5a6b5f;
+  --color-gray-800: #2a352d;
+
+  /* Typography — CSS variables injected by next/font */
+  --font-serif: var(--font-dm-serif), "DM Serif Display", serif;
+  --font-sans: var(--font-dm-sans), "DM Sans", sans-serif;
+}
+
+/* Prevent horizontal overflow on all viewports */
+html, body {
+  overflow-x: hidden;
+}
