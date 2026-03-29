@@ -1,14 +1,17 @@
 """Orquestrador do pipeline Sofia + Carla para WhatsApp.
 
 Implementa buffer adaptativo de mensagens:
-- Quando chega uma mensagem, registra o timestamp e aguarda.
-- Se o cliente manda mensagens rápidas (< 4s entre elas), o buffer espera mais.
-- Se o cliente para de digitar, processa logo (3s de silêncio).
-- Isso evita respostas fragmentadas e mantém ritmo natural de conversa.
+- Quando chega uma mensagem, registra o timestamp e aguarda um curto silêncio.
+- Se o cliente manda mensagens rápidas (< threshold entre elas), espera um pouco mais
+  para juntar tudo numa única resposta.
+- Tempos padrão mais curtos para resposta rápida; ajuste via variáveis de ambiente:
+  ORCHESTRATOR_BUFFER_WAIT_BASE, ORCHESTRATOR_BUFFER_WAIT_FAST,
+  ORCHESTRATOR_FAST_TYPING_THRESHOLD (segundos).
 """
 
 import asyncio
 import logging
+import os
 import time
 from collections import defaultdict
 from typing import Dict, List
@@ -17,7 +20,11 @@ from langchain_core.messages import HumanMessage
 
 from src.agent.graph import build_graph
 from src.agent_carla.graph import build_carla_graph
-from src.core.extraction import extract_data, determine_etapa
+from src.core.extraction import (
+    determine_etapa,
+    extract_data,
+    reconcile_state_nome_paciente,
+)
 from src.api.session import SessionManager
 from src.api.evolution import EvolutionClient
 from src.observability.langfuse_setup import get_langfuse
@@ -42,12 +49,12 @@ _buffer_seq: Dict[str, int] = defaultdict(int)
 # Timestamps da última mensagem por telefone (para detectar ritmo)
 _last_message_time: Dict[str, float] = {}
 
-# Buffer base: espera sempre esse tempo mínimo após o silêncio
-BUFFER_WAIT_BASE = 10
+# Buffer: silêncio após última mensagem antes de processar (segundos)
+BUFFER_WAIT_BASE = float(os.getenv("ORCHESTRATOR_BUFFER_WAIT_BASE", "3.5"))
 # Se mensagens chegarem em menos de X segundos, considera "digitando rápido"
-FAST_TYPING_THRESHOLD = 4.0
-# Espera extra quando o cliente está digitando rápido
-BUFFER_WAIT_FAST = 6.0
+FAST_TYPING_THRESHOLD = float(os.getenv("ORCHESTRATOR_FAST_TYPING_THRESHOLD", "4.0"))
+# Espera quando o cliente está digitando rápido (ainda junta mensagens)
+BUFFER_WAIT_FAST = float(os.getenv("ORCHESTRATOR_BUFFER_WAIT_FAST", "2.5"))
 
 
 def _get_graphs():
@@ -84,7 +91,6 @@ async def handle_message(
     """Acumula mensagens no buffer com espera adaptativa.
 
     Detecta se o cliente está digitando rápido e ajusta o tempo de espera.
-    Se estiver devagar, processa em 3s. Se rápido, espera até 5s de silêncio.
     """
     now = time.time()
     last = _last_message_time.get(phone, 0)
@@ -192,6 +198,8 @@ async def _process_message(
 
     # 4. Extrair dados e determinar etapa
     extracted = await asyncio.to_thread(extract_data, state["messages"])
+    if extracted.pop("_clear_nome_paciente", False):
+        state["nome_paciente"] = ""
 
     for key in [
         "nome_paciente",
@@ -226,6 +234,8 @@ async def _process_message(
         value = extracted.get(key)
         if value and value != "null" and str(value) != "None":
             state[key] = str(value)
+
+    reconcile_state_nome_paciente(state, state["messages"])
 
     state["etapa"] = determine_etapa(state, extracted)
     logger.info(f"[{phone}] Etapa: {state['etapa']} | Dados: {extracted}")

@@ -6,7 +6,12 @@ from langchain_core.messages import HumanMessage
 
 from src.agent.graph import build_graph
 from src.agent_carla.graph import build_carla_graph
-from src.core.extraction import extract_data, determine_etapa, default_state
+from src.core.extraction import (
+    default_state,
+    determine_etapa,
+    extract_data,
+    reconcile_state_nome_paciente,
+)
 from src.observability.langfuse_setup import get_langfuse
 
 
@@ -72,12 +77,16 @@ def main():
 
         # Extrai dados da conversa e determina próxima etapa
         extracted = extract_data(state["messages"])
+        if extracted.pop("_clear_nome_paciente", False):
+            state["nome_paciente"] = ""
 
         for key in ["nome_paciente", "especialidade", "motivo_consulta", "convenio",
                      "data_agendamento", "horario_agendamento"]:
             value = extracted.get(key)
             if value and value != "null" and str(value) != "None":
                 state[key] = str(value)
+
+        reconcile_state_nome_paciente(state, state["messages"])
 
         state["etapa"] = determine_etapa(state, extracted)
 

@@ -14,6 +14,7 @@ from src.agent.prompts import (
     PROMPT_VERIFICAR_AGENDA,
     PROMPT_CONFIRMAR_AGENDAMENTO,
     PROMPT_ENCERRAR,
+    PROMPT_POS_ENCERRAR,
     PROMPT_FAQ,
     PROMPT_CANCELAR_CONSULTA,
     PROMPT_ALTERAR_CONSULTA,
@@ -195,6 +196,8 @@ def identificar_motivo(state: ClinicaState) -> dict:
     return {
         "messages": state["messages"] + [AIMessage(content=response_text)],
         "etapa": "identificar_motivo",
+        "agendamento_concluido": False,
+        "protocolo_gerado": "",
     }
 
 
@@ -326,6 +329,27 @@ def encerrar(state: ClinicaState) -> dict:
     langfuse = get_langfuse()
     span = langfuse.span(name="encerrar", input={"etapa": "encerrar"})
 
+    protocolo_salvo = state.get("protocolo_gerado", "")
+
+    # Conversa depois do agendamento já salvo — sem novo db_agendar, resposta curta
+    if state.get("agendamento_concluido"):
+        prompt = PROMPT_POS_ENCERRAR.format(
+            nome_paciente=state.get("nome_paciente", "Paciente"),
+            protocolo=protocolo_salvo or "já enviado acima na conversa",
+            medico_agendado=state.get("medico_agendado", "médico"),
+            data_agendamento=state.get("data_agendamento", "não informada"),
+            horario_agendamento=state.get("horario_agendamento", "não informado"),
+        )
+        response_text = _invoke_llm(prompt, state["messages"], span, state.get("rag_context", ""))
+        span.end(output={"response": response_text, "pos_encerrar": True})
+        langfuse.flush()
+        return {
+            "messages": state["messages"] + [AIMessage(content=response_text)],
+            "etapa": "encerrar",
+            "agendamento_concluido": True,
+            "protocolo_gerado": protocolo_salvo,
+        }
+
     from src.tools.appointments import db_agendar
     resultado = db_agendar(
         phone=state.get("session_id", ""),
@@ -376,6 +400,8 @@ def encerrar(state: ClinicaState) -> dict:
     return {
         "messages": state["messages"] + [AIMessage(content=response_text)],
         "etapa": "encerrar",
+        "agendamento_concluido": True,
+        "protocolo_gerado": protocolo,
     }
 
 
@@ -393,9 +419,14 @@ def responder_faq(state: ClinicaState) -> dict:
     span.end(output=response_text)
     langfuse.flush()
 
+    # Não reabre fluxo comercial depois que o agendamento já foi fechado
+    etapa_saida = "identificar_motivo"
+    if state.get("etapa") == "encerrar" or state.get("agendamento_concluido"):
+        etapa_saida = "encerrar"
+
     return {
         "messages": state["messages"] + [AIMessage(content=response_text)],
-        "etapa": "identificar_motivo",
+        "etapa": etapa_saida,
     }
 
 

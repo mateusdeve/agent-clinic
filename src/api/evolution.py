@@ -17,10 +17,10 @@ import httpx
 logger = logging.getLogger("agent-clinic.evolution")
 
 # Velocidade de "digitação" — caracteres por segundo
-TYPING_SPEED = 30
-# Tempo mínimo e máximo de digitação
-TYPING_MIN = 1.5
-TYPING_MAX = 8.0
+TYPING_SPEED = float(os.getenv("EVOLUTION_TYPING_SPEED", "30"))
+# Tempo mínimo e máximo de digitação antes de enviar (segundos)
+TYPING_MIN = float(os.getenv("EVOLUTION_TYPING_MIN", "1.0"))
+TYPING_MAX = float(os.getenv("EVOLUTION_TYPING_MAX", "8.0"))
 
 
 class EvolutionClient:

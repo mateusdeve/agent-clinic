@@ -36,6 +36,11 @@ class SessionManager:
         try:
             data = json.loads(raw)
             data["messages"] = messages_from_dict(data["messages"])
+            # Sessões antigas em "encerrar" sem flag — evita re-salvar consulta no próximo turno
+            if data.get("etapa") == "encerrar" and not data.get("agendamento_concluido"):
+                data["agendamento_concluido"] = True
+            data.setdefault("protocolo_gerado", "")
+            data.setdefault("agendamento_concluido", False)
             logger.info(f"Sessão carregada para {phone} (etapa: {data.get('etapa')})")
             return data
         except (json.JSONDecodeError, KeyError) as e:

@@ -23,3 +23,5 @@ class ClinicaState(TypedDict):
     periodo: str            # "manhã" | "tarde" | ""
     apresentacao_feita: bool  # True depois da primeira apresentação
     medico_mencionado: str  # nome do médico que o paciente pediu (ex: "Marcos")
+    agendamento_concluido: bool  # True após salvar consulta — evita re-salvar e re-apresentação
+    protocolo_gerado: str  # protocolo da última consulta confirmada nesta sessão

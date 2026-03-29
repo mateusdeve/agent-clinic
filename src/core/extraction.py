@@ -3,10 +3,16 @@
 Usado por main.py (CLI) e src/api/orchestrator.py (WhatsApp).
 """
 
-import os
 import json
+import logging
+import os
 
 from langchain_openai import ChatOpenAI
+
+logger = logging.getLogger(__name__)
+
+# Nomes da atendente virtual / revisora — nunca são nome do paciente sem contexto explícito
+_ASSISTANT_FIRST_NAMES = frozenset({"sofia", "carla"})
 
 from src.tools.agenda import ESPECIALIDADES, CONVENIOS
 
@@ -17,7 +23,8 @@ Analise TODA a conversa abaixo e extraia os dados que conseguir identificar.
 Retorne APENAS um JSON válido com os campos abaixo. Use null para campos não identificados.
 
 Campos:
-- nome_paciente: nome do paciente (string ou null). Extraia mesmo em frases como "sou o João", "me chamo Maria", "meu nome é Pedro", "aqui é o Carlos". Capture apenas o nome próprio, sem artigos.
+- nome_paciente: nome do PACIENTE humano (string ou null). Extraia em frases como "sou o João", "me chamo Maria", "meu nome é Pedro", "aqui é o Carlos". Capture apenas o nome próprio, sem artigos.
+  CRÍTICO: NUNCA use "Sofia" nem "Carla" como nome_paciente quando o paciente só cumprimenta a atendente ou repete o nome dela ("Sofia", "oi Sofia") — nesses casos use null. A atendente se chama Sofia; "Sofia" dito assim é endereço à assistente, não nome do paciente. Só preencha nome_paciente "Sofia" se o paciente disser explicitamente que SE chama Sofia (ex.: "meu nome é Sofia", "me chamo Sofia Silva").
 - especialidade: deve ser exatamente uma dessas: {especialidades} (string ou null)
 - motivo_consulta: "agendamento", "cancelar", "alterar" ou "faq" (string ou null). Se mencionar consulta médica nova → "agendamento". Se quiser cancelar/desmarcar → "cancelar". Se quiser remarcar/alterar → "alterar". Se fizer pergunta geral sobre a clínica (endereço, horário, convênios) → "faq". IMPORTANTE: se o paciente perguntar se um médico trabalha na clínica, mencionar que já consultou com ele, ou indicar que quer ser atendido por um médico específico → "agendamento" (não "faq").
 - convenio: deve ser exatamente um desses: {convenios} (string ou null)
@@ -34,6 +41,64 @@ Conversa:
 {conversa}
 
 JSON:"""
+
+
+def _patient_intro_markers() -> tuple:
+    return (
+        "meu nome",
+        "me chamo",
+        "chamo-me",
+        "meu nome é",
+        "meu nome e",
+    )
+
+
+def _patient_blob(messages: list) -> str:
+    return " ".join(
+        m.content.lower()
+        for m in messages
+        if getattr(m, "type", None) == "human"
+    )
+
+
+def is_false_positive_assistant_as_patient_name(nome: str, messages: list) -> bool:
+    """True se `nome` é o da atendente mas o paciente não se apresentou com esse nome."""
+    nome = (nome or "").strip()
+    if not nome or nome.lower() not in _ASSISTANT_FIRST_NAMES:
+        return False
+    patient_text = _patient_blob(messages)
+    if any(m in patient_text for m in _patient_intro_markers()):
+        return False
+    return True
+
+
+def sanitize_extracted_nome_paciente(data: dict, messages: list) -> dict:
+    """Evita confundir o nome da atendente virtual com nome do paciente."""
+    if not data:
+        return data
+    nome = (data.get("nome_paciente") or "").strip()
+    if not nome or not is_false_positive_assistant_as_patient_name(nome, messages):
+        return data
+
+    logger.info(
+        "nome_paciente '%s' descartado (sem introdução do paciente; provável nome da atendente)",
+        nome,
+    )
+    out = {**data, "nome_paciente": None}
+    out["_clear_nome_paciente"] = True
+    return out
+
+
+def reconcile_state_nome_paciente(state: dict, messages: list) -> None:
+    """Corrige estado persistido (ex.: Redis) que guardou o nome da atendente como paciente."""
+    nome = state.get("nome_paciente") or ""
+    if not is_false_positive_assistant_as_patient_name(nome, messages):
+        return
+    logger.info(
+        "Removendo nome_paciente '%s' do estado (inconsistente com as mensagens)",
+        nome.strip(),
+    )
+    state["nome_paciente"] = ""
 
 
 def extract_data(messages: list) -> dict:
@@ -62,7 +127,8 @@ def extract_data(messages: list) -> dict:
         content = response.content.strip()
         if content.startswith("```"):
             content = content.split("\n", 1)[1].rsplit("```", 1)[0]
-        return json.loads(content)
+        data = json.loads(content)
+        return sanitize_extracted_nome_paciente(data, messages)
     except (json.JSONDecodeError, IndexError):
         return {}
 
@@ -76,12 +142,24 @@ def determine_etapa(state: dict, extracted: dict) -> str:
     data = state.get("data_agendamento") or extracted.get("data_agendamento")
     horario = state.get("horario_agendamento") or extracted.get("horario_agendamento")
     confirmou = extracted.get("confirmou_agendamento")
-    etapa_atual = state.get("etapa", "recepcionar")
-
-    medico_mencionado = state.get("medico_mencionado") or extracted.get("medico_mencionado")
 
     if not nome:
         return "recepcionar"
+
+    agendamento_concluido = state.get("agendamento_concluido", False)
+    etapa_atual = state.get("etapa", "recepcionar")
+    medico_mencionado = state.get("medico_mencionado") or extracted.get("medico_mencionado")
+
+    # Já finalizou agendamento: conversa leve (nome da atendente, agradecimento)
+    # sem reabrir FAQ→identificar_motivo nem duplicar confirmação
+    if agendamento_concluido or etapa_atual == "encerrar":
+        if motivo == "cancelar":
+            return "cancelar_consulta"
+        if motivo == "alterar":
+            return "alterar_consulta"
+        if motivo == "agendamento":
+            return "identificar_motivo"
+        return "encerrar"
 
     # Se mencionou um médico específico, prioriza identificar_motivo para confirmar
     # com o paciente — não trata como FAQ genérico
@@ -138,4 +216,6 @@ def default_state(session_id: str = "") -> dict:
         "periodo": "",
         "apresentacao_feita": False,
         "medico_mencionado": "",
+        "agendamento_concluido": False,
+        "protocolo_gerado": "",
     }
