@@ -31,7 +31,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. The landing page renders correctly on a mobile device (375px width) with no horizontal overflow
   4. The visual identity matches site.html: green palette, DM Serif Display headings, DM Sans body text, rounded borders
   5. Next.js project runs locally with Tailwind CSS 4, shadcn/ui configured, and route groups (landing/auth/dashboard) separated
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+- [ ] 01-01-PLAN.md — Scaffold Next.js project, Tailwind 4 design tokens, shadcn init, route groups
+- [ ] 01-02-PLAN.md — Build all 8 landing page section components with WhatsApp CTAs
+- [ ] 01-03-PLAN.md — Responsive audit at 900px breakpoint and visual verification
 **UI hint**: yes
 
 ### Phase 2: Auth + Multi-Tenancy
@@ -102,7 +106,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/TBD | Not started | - |
+| 1. Foundation | 0/3 | Planning complete | - |
 | 2. Auth + Multi-Tenancy | 0/TBD | Not started | - |
 | 3. Core CRUD | 0/TBD | Not started | - |
 | 4. WhatsApp Panel | 0/TBD | Not started | - |
