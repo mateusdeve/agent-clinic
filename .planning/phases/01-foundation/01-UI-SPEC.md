@@ -66,39 +66,35 @@ Section-level padding (desktop → mobile):
 
 | Section | Desktop | Mobile |
 |---------|---------|--------|
-| Nav | 20px 48px | 16px 24px |
+| Nav | 24px 48px | 16px 24px |
 | Hero | 100px 48px 60px | 100px 24px 60px |
 | Stats | 60px 48px | 48px 24px |
 | Features | 100px 48px | 60px 24px |
 | HowItWorks | 100px 48px | 60px 24px |
 | Testimonial | 80px 48px | 60px 24px |
 | FinalCTA | 100px 48px | 60px 24px |
-| Footer | 28px 48px | 28px 24px |
+| Footer | 32px 48px | 32px 24px |
 
-Exceptions: Nav uses 20px vertical (not a multiple of 4). Accept as-is to match site.html exactly. Touch targets on CTA buttons are minimum 44px height achieved via 14px–16px padding + font-size.
+Touch targets on CTA buttons are minimum 44px height achieved via 14px–16px padding + font-size.
 
 ---
 
 ## Typography
 
+Four font sizes, two weights — no exceptions.
+
 | Role | Font | Size | Weight | Line Height | Usage |
 |------|------|------|--------|-------------|-------|
-| Body | DM Sans | 16px (1rem) | 400 | 1.5 | Default body text |
-| Label/Caption | DM Sans | 12–13px (0.78–0.8rem) | 400 | 1.4 | Form notes, footer, badge dot, stat label |
-| Subtext | DM Sans | 14px (0.875rem) | 300 | 1.65 | Feature card body, step body, quote author, chat messages |
-| Section text | DM Sans | 15px (0.9–0.95rem) | 300 | 1.7 | Hero subtitle, general paragraph text |
-| Card heading | DM Serif Display | 19px (1.2rem) | 400 | 1.2 | Feature card h3, step h4 |
-| Section heading | DM Serif Display | clamp(2rem, 3vw, 2.8rem) | 400 | 1.2 | Features/HowItWorks section title |
-| Quote | DM Serif Display | clamp(1.3rem, 2.5vw, 1.9rem) | 400 italic | 1.4 | Testimonial quote |
-| Display / h1 | DM Serif Display | clamp(2.4rem, 4vw, 3.6rem) | 400 | 1.1 | Hero h1 |
-| FinalCTA h2 | DM Serif Display | clamp(2rem, 3.5vw, 3rem) | 400 | 1.2 | Final CTA heading |
-| Stat number | DM Serif Display | 48px (3rem) | 400 | 1.0 | Stats section large numerals |
-| Logo | DM Serif Display | 24px (1.5rem) | 400 | 1.0 | Navbar brand name |
-| Nav CTA | DM Sans | 14px (0.875rem) | 500 | — | Navbar button |
+| Caption / Label | DM Sans | 12px (0.75rem) | 400 | 1.4 | Labels, captions, footer, badge, form notes |
+| Body | DM Sans | 16px (1rem) | 400 | 1.5 | Body text, nav CTA label, feature card body, step body, quote author |
+| Card heading | DM Serif Display | 24px (1.5rem) | 400 | 1.2 | Card headings, section labels, logo |
+| Display / Heading | DM Serif Display | clamp(2rem, 3vw, 3.6rem) | 400 | 1.1 | All display and section headings (h1, h2, section titles) — differentiate via color or italic, not size |
 
-**Simplified 2-weight rule:** 400 (regular) for all DM Serif Display; 300 and 500/600 for DM Sans supporting text and interactive labels. No bold (700) weight is used anywhere.
+**Two weights only:**
+- 400 (regular) — all DM Serif Display, all DM Sans body and label text
+- 600 (semibold) — all CTAs, interactive labels, stat numbers
 
-**Italic usage:** DM Serif Display italic is loaded. Used for `<em>` emphasis in headings (color: green-500) and the testimonial quote.
+**Italic usage:** DM Serif Display italic is loaded. Used for `<em>` emphasis within headings (color: green-500) and the testimonial quote.
 
 ---
 
@@ -127,6 +123,8 @@ Exceptions: Nav uses 20px vertical (not a multiple of 4). Accept as-is to match 
 - 60%: `#ffffff` white — page and card backgrounds
 - 30%: `#f5f7f5` off-white + `#0d2e1a` dark sections — alternating section backgrounds, footer
 - 10%: `#2e9e60` green-500 family — CTAs, emphasis, interactive indicators
+
+**Primary visual anchor:** HeroSection h1 — largest text element on the page, first visible above the fold, rendered at `clamp(2rem, 3vw, 3.6rem)` in DM Serif Display. Reinforced as the focal point by a staggered fadeUp animation sequence (badge → h1 → subtitle → CTA → social proof, delays 0s through 0.5s) that draws the eye downward through the hero hierarchy before any other section enters view.
 
 ---
 
@@ -157,7 +155,7 @@ Two CTA button styles:
 
 **Primary button (`.btn-primary` equivalent):**
 - Background: green-500 (`#2e9e60`)
-- Text: white, DM Sans 15px weight 600
+- Text: white, DM Sans 16px weight 600
 - Padding: 14px 28px
 - Border radius: 12px
 - Hover: bg green-600, translateY(-2px), box-shadow `0 8px 24px rgba(46,158,96,0.3)`
@@ -165,14 +163,14 @@ Two CTA button styles:
 
 **Nav CTA button:**
 - Background: green-500
-- Text: white, DM Sans 14px weight 500
+- Text: white, DM Sans 16px weight 600
 - Padding: 10px 24px
 - Border radius: 100px (pill)
 - Hover: bg green-600, translateY(-1px)
 - Transition: background 0.2s, transform 0.15s
 
 **Large button (`.btn-lg` equivalent — FinalCTA section):**
-- Same as primary button but padding: 16px 32px, font-size 16px, border-radius 14px
+- Same as primary button but padding: 16px 32px, border-radius 14px
 
 Both primary CTAs are `<a>` anchor tags pointing to `https://wa.me/${NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodedMessage}`. No form submission. `target="_blank"` + `rel="noopener noreferrer"`.
 
