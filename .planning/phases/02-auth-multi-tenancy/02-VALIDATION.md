@@ -4,6 +4,7 @@ slug: auth-multi-tenancy
 status: draft
 nyquist_compliant: false
 wave_0_complete: false
+wave_0_plan: 02-00-PLAN.md
 created: 2026-03-29
 ---
 
@@ -18,7 +19,7 @@ created: 2026-03-29
 | Property | Value |
 |----------|-------|
 | **Framework** | pytest 8.4.2 (backend) / Next.js build check (frontend) |
-| **Config file** | `agent-service/pytest.ini` (to be created in Wave 0) |
+| **Config file** | `agent-service/pytest.ini` (created in Wave 0 — Plan 02-00) |
 | **Quick run command** | `cd agent-service && python -m pytest tests/ -x -q --tb=short` |
 | **Full suite command** | `cd agent-service && python -m pytest tests/ -v --tb=long` |
 | **Estimated runtime** | ~15 seconds |
@@ -38,12 +39,13 @@ created: 2026-03-29
 
 | Task ID | Plan | Wave | Requirement | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|-----------|-------------------|-------------|--------|
+| 02-00-01 | 00 | 0 | — | scaffold | `pytest --co -q` | ⬜ W0 | ⬜ pending |
 | 02-01-01 | 01 | 1 | TENANT-01 | migration | `alembic upgrade head` | ❌ W0 | ⬜ pending |
-| 02-02-01 | 02 | 1 | API-02 | unit | `pytest tests/test_auth.py` | ❌ W0 | ⬜ pending |
-| 02-02-02 | 02 | 1 | AUTH-04, AUTH-06 | unit | `pytest tests/test_rbac.py` | ❌ W0 | ⬜ pending |
-| 02-03-01 | 03 | 2 | AUTH-01, AUTH-02 | build | `npm run build` | ✅ | ⬜ pending |
-| 02-03-02 | 03 | 2 | AUTH-05 | build | `npm run build` | ✅ | ⬜ pending |
-| 02-04-01 | 04 | 3 | TENANT-02, TENANT-03 | integration | `pytest tests/test_tenant_isolation.py` | ❌ W0 | ⬜ pending |
+| 02-02-01 | 02 | 2 | API-02 | unit | `pytest tests/test_auth.py` | ❌ W0 | ⬜ pending |
+| 02-02-02 | 02 | 2 | AUTH-04, AUTH-06, TENANT-01, TENANT-02 | unit | `pytest tests/test_rbac.py` | ❌ W0 | ⬜ pending |
+| 02-02-03 | 02 | 2 | TENANT-02, TENANT-03 | integration | `pytest tests/test_tenant_isolation.py` | ❌ W0 | ⬜ pending |
+| 02-03-01 | 03 | 3 | AUTH-01, AUTH-02 | build | `npm run build` | ✅ | ⬜ pending |
+| 02-03-02 | 03 | 3 | AUTH-05 | build | `npm run build` | ✅ | ⬜ pending |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
@@ -51,11 +53,13 @@ created: 2026-03-29
 
 ## Wave 0 Requirements
 
+- [ ] `agent-service/pytest.ini` — pytest configuration
 - [ ] `agent-service/tests/conftest.py` — shared fixtures (test DB, test client)
 - [ ] `agent-service/tests/test_auth.py` — stubs for AUTH-01 through AUTH-06
 - [ ] `agent-service/tests/test_rbac.py` — stubs for AUTH-04, AUTH-06
 - [ ] `agent-service/tests/test_tenant_isolation.py` — stubs for TENANT-01, TENANT-02, TENANT-03
-- [ ] `agent-service/pytest.ini` — pytest configuration
+
+**Wave 0 Plan:** `02-00-PLAN.md` (creates all test stubs before Plans 01-03 execute)
 
 ---
 
