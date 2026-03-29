@@ -34,7 +34,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans
 Plans:
 - [x] 01-01-PLAN.md — Scaffold Next.js project, Tailwind 4 design tokens, shadcn init, route groups
-- [ ] 01-02-PLAN.md — Build all 8 landing page section components with WhatsApp CTAs
+- [x] 01-02-PLAN.md — Build all 8 landing page section components with WhatsApp CTAs
 - [ ] 01-03-PLAN.md — Responsive audit at 900px breakpoint and visual verification
 **UI hint**: yes
 
@@ -106,7 +106,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 1/3 | In Progress|  |
+| 1. Foundation | 2/3 | In Progress|  |
 | 2. Auth + Multi-Tenancy | 0/TBD | Not started | - |
 | 3. Core CRUD | 0/TBD | Not started | - |
 | 4. WhatsApp Panel | 0/TBD | Not started | - |
