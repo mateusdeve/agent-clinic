@@ -1,0 +1,208 @@
+# Requirements: MedIA
+
+**Defined:** 2026-03-29
+**Core Value:** O paciente consegue agendar, remarcar e tirar duvidas pelo WhatsApp 24h sem intervencao humana, e a equipe da clinica tem visibilidade total das conversas e agendamentos em tempo real.
+
+## v1 Requirements
+
+### Landing Page
+
+- [ ] **LAND-01**: Visitante ve hero section com proposta de valor e CTA que redireciona para WhatsApp
+- [ ] **LAND-02**: Visitante ve secoes de features, como funciona e depoimento (baseado no site.html)
+- [ ] **LAND-03**: Landing page e responsiva e funcional em dispositivos moveis
+- [ ] **LAND-04**: Landing page segue identidade visual do site.html (paleta verde, DM Serif/DM Sans)
+
+### Authentication
+
+- [ ] **AUTH-01**: Usuario pode fazer login com email e senha
+- [ ] **AUTH-02**: Usuario pode fazer logout de qualquer pagina
+- [ ] **AUTH-03**: Sessao do usuario persiste entre recarregamentos do browser (JWT + refresh token)
+- [ ] **AUTH-04**: Sistema suporta tres roles: Admin, Recepcionista, Medico
+- [ ] **AUTH-05**: Rotas protegidas redirecionam usuario nao autenticado para login
+- [ ] **AUTH-06**: Funcionalidades sao restritas por role (RBAC)
+
+### Multi-Tenancy
+
+- [ ] **TENANT-01**: Cada clinica tem dados completamente isolados (tenant_id em todas as tabelas)
+- [ ] **TENANT-02**: Nenhum endpoint retorna dados de outra clinica
+- [ ] **TENANT-03**: tenant_id e extraido do JWT automaticamente, nunca passado como parametro
+
+### Dashboard
+
+- [ ] **DASH-01**: Admin/Recepcionista ve KPIs: consultas hoje, taxa de ocupacao, no-shows, confirmacoes pendentes
+- [ ] **DASH-02**: Admin/Recepcionista ve lista das proximas consultas do dia
+- [ ] **DASH-03**: Admin/Recepcionista ve contador de conversas WhatsApp ativas
+- [ ] **DASH-04**: Admin ve graficos de tendencias semanais, funil de conversao e receita por especialidade
+
+### Appointment Management (Agenda)
+
+- [ ] **AGENDA-01**: Recepcionista ve calendario visual (dia/semana/mes) com filtro por medico
+- [ ] **AGENDA-02**: Recepcionista pode criar agendamento manualmente (paciente, medico, data, hora, especialidade)
+- [ ] **AGENDA-03**: Recepcionista pode editar/remarcar agendamento existente
+- [ ] **AGENDA-04**: Recepcionista pode cancelar agendamento com motivo opcional
+- [ ] **AGENDA-05**: Agendamentos tem status tracking: Agendado > Confirmado > Realizado > Cancelado
+- [ ] **AGENDA-06**: Admin pode bloquear horarios (ferias, almoco, indisponibilidade)
+- [ ] **AGENDA-07**: Medico ve apenas sua propria agenda
+
+### Patient Management
+
+- [ ] **PAT-01**: Recepcionista ve lista de pacientes com busca por nome/telefone
+- [ ] **PAT-02**: Recepcionista pode criar paciente manualmente (nome, telefone, data nascimento, notas)
+- [ ] **PAT-03**: Recepcionista pode editar dados de paciente
+- [ ] **PAT-04**: Pagina de perfil do paciente mostra historico de consultas
+- [ ] **PAT-05**: Pagina de perfil do paciente mostra historico de conversas WhatsApp
+
+### WhatsApp Panel — Inbox
+
+- [ ] **WPP-01**: Recepcionista ve lista de conversas em tempo real via WebSocket
+- [ ] **WPP-02**: Recepcionista pode abrir conversa e ler historico completo de mensagens
+- [ ] **WPP-03**: Conversas mostram indicador de status: IA ativa / takeover humano / resolvida
+- [ ] **WPP-04**: Novas mensagens aparecem em tempo real sem recarregar a pagina
+- [ ] **WPP-05**: Recepcionista pode buscar conversas por nome/telefone do paciente
+- [ ] **WPP-06**: Painel lateral mostra info do paciente junto com a conversa
+
+### WhatsApp Panel — Takeover
+
+- [ ] **WPP-07**: Recepcionista pode clicar "Assumir" para desativar IA naquela conversa
+- [ ] **WPP-08**: Recepcionista pode enviar mensagens como humano pelo painel
+- [ ] **WPP-09**: Recepcionista pode clicar "Devolver para IA" para reativar o bot
+- [ ] **WPP-10**: IA nao responde enquanto conversa esta em modo takeover
+- [ ] **WPP-11**: Indicador visual mostra que conversa esta em modo humano para todos os usuarios conectados
+
+### WhatsApp Panel — Templates & Campaigns
+
+- [ ] **WPP-12**: Admin pode criar/editar templates de mensagem com variaveis (nome, data)
+- [ ] **WPP-13**: Recepcionista pode usar template para enviar mensagem rapida a um paciente
+- [ ] **WPP-14**: Admin pode criar campanha selecionando segmento de pacientes e template
+- [ ] **WPP-15**: Sistema envia campanha respeitando rate limits do WhatsApp
+- [ ] **WPP-16**: Admin ve status da campanha (enviado/entregue/lido/falha)
+
+### Doctor Management
+
+- [ ] **DOC-01**: Admin ve lista de medicos com especialidade
+- [ ] **DOC-02**: Admin pode criar/editar perfil de medico (nome, especialidade, CRM, horarios)
+- [ ] **DOC-03**: Admin pode definir grade de disponibilidade por medico (dia x horarios)
+
+### User Management
+
+- [ ] **USER-01**: Admin ve lista de usuarios do sistema com role
+- [ ] **USER-02**: Admin pode criar usuario com atribuicao de role
+- [ ] **USER-03**: Admin pode editar role de usuario existente
+- [ ] **USER-04**: Admin pode desativar/reativar usuario
+- [ ] **USER-05**: Usuario pode redefinir senha
+
+### Backend API
+
+- [ ] **API-01**: FastAPI expoe endpoints REST para todas as entidades (patients, appointments, doctors, users, conversations)
+- [ ] **API-02**: FastAPI implementa autenticacao JWT com refresh token
+- [ ] **API-03**: FastAPI implementa middleware de multi-tenancy com filtro automatico por tenant_id
+- [ ] **API-04**: FastAPI integra Socket.IO para streaming de mensagens WhatsApp em tempo real
+
+## v2 Requirements
+
+### Dashboard Intelligence
+
+- **DASH-V2-01**: Funil de conversao WhatsApp → agendamento → comparecimento
+- **DASH-V2-02**: Performance do agente Sofia (tempo de resposta, resolucoes)
+- **DASH-V2-03**: Receita por especialidade (requer tagging de valores)
+
+### Advanced WhatsApp
+
+- **WPP-V2-01**: Notas internas em conversas (contexto para troca de turno)
+- **WPP-V2-02**: Atribuicao de conversa a funcionario especifico
+- **WPP-V2-03**: Tags/categorizacao de conversas (urgencia, reclamacao)
+- **WPP-V2-04**: Resumo automatico de conversa por IA
+
+### Patient CRM
+
+- **PAT-V2-01**: Segmentacao de pacientes (ativo, inativo, em risco)
+- **PAT-V2-02**: Resumo de conversa WhatsApp no card do paciente
+
+### Automation
+
+- **AUTO-V2-01**: Waitlist management (notificar paciente quando vaga abre)
+- **AUTO-V2-02**: Confirmacao automatica 24h antes via WhatsApp (controle no UI)
+
+## Out of Scope
+
+| Feature | Reason |
+|---------|--------|
+| Prontuario Eletronico (PEP) | Complexidade CFM/TISS, meses de trabalho, sem diferencial WhatsApp |
+| Portal do paciente (login paciente) | Dobra complexidade auth, compete com canal WhatsApp |
+| Pagamento online / billing | PCI compliance, gateway, seguro — v2+ |
+| App mobile nativo | Web responsivo resolve v1, PWA como ponte |
+| Video consulta / telemedicina | Categoria de produto diferente (WebRTC) |
+| Multi-idioma | pt-BR unico mercado v1, i18n sem valor agora |
+| Integracao TISS/ANS | Cada plano tem regras diferentes, escopo proprio |
+| SEO avancado na landing | SEO basico sim, blog/conteudo nao |
+
+## Traceability
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| LAND-01 | Pending | Pending |
+| LAND-02 | Pending | Pending |
+| LAND-03 | Pending | Pending |
+| LAND-04 | Pending | Pending |
+| AUTH-01 | Pending | Pending |
+| AUTH-02 | Pending | Pending |
+| AUTH-03 | Pending | Pending |
+| AUTH-04 | Pending | Pending |
+| AUTH-05 | Pending | Pending |
+| AUTH-06 | Pending | Pending |
+| TENANT-01 | Pending | Pending |
+| TENANT-02 | Pending | Pending |
+| TENANT-03 | Pending | Pending |
+| DASH-01 | Pending | Pending |
+| DASH-02 | Pending | Pending |
+| DASH-03 | Pending | Pending |
+| DASH-04 | Pending | Pending |
+| AGENDA-01 | Pending | Pending |
+| AGENDA-02 | Pending | Pending |
+| AGENDA-03 | Pending | Pending |
+| AGENDA-04 | Pending | Pending |
+| AGENDA-05 | Pending | Pending |
+| AGENDA-06 | Pending | Pending |
+| AGENDA-07 | Pending | Pending |
+| PAT-01 | Pending | Pending |
+| PAT-02 | Pending | Pending |
+| PAT-03 | Pending | Pending |
+| PAT-04 | Pending | Pending |
+| PAT-05 | Pending | Pending |
+| WPP-01 | Pending | Pending |
+| WPP-02 | Pending | Pending |
+| WPP-03 | Pending | Pending |
+| WPP-04 | Pending | Pending |
+| WPP-05 | Pending | Pending |
+| WPP-06 | Pending | Pending |
+| WPP-07 | Pending | Pending |
+| WPP-08 | Pending | Pending |
+| WPP-09 | Pending | Pending |
+| WPP-10 | Pending | Pending |
+| WPP-11 | Pending | Pending |
+| WPP-12 | Pending | Pending |
+| WPP-13 | Pending | Pending |
+| WPP-14 | Pending | Pending |
+| WPP-15 | Pending | Pending |
+| WPP-16 | Pending | Pending |
+| DOC-01 | Pending | Pending |
+| DOC-02 | Pending | Pending |
+| DOC-03 | Pending | Pending |
+| USER-01 | Pending | Pending |
+| USER-02 | Pending | Pending |
+| USER-03 | Pending | Pending |
+| USER-04 | Pending | Pending |
+| USER-05 | Pending | Pending |
+| API-01 | Pending | Pending |
+| API-02 | Pending | Pending |
+| API-03 | Pending | Pending |
+| API-04 | Pending | Pending |
+
+**Coverage:**
+- v1 requirements: 52 total
+- Mapped to phases: 0
+- Unmapped: 52
+
+---
+*Requirements defined: 2026-03-29*
+*Last updated: 2026-03-29 after initial definition*
