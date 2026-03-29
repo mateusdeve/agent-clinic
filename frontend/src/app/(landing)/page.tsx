@@ -1,10 +1,23 @@
+import NavBar from "@/components/landing/NavBar";
+import HeroSection from "@/components/landing/HeroSection";
+import StatsSection from "@/components/landing/StatsSection";
+import FeaturesSection from "@/components/landing/FeaturesSection";
+import HowItWorksSection from "@/components/landing/HowItWorksSection";
+import TestimonialSection from "@/components/landing/TestimonialSection";
+import FinalCtaSection from "@/components/landing/FinalCtaSection";
+import Footer from "@/components/landing/Footer";
+
 export default function LandingPage() {
   return (
-    <main className="min-h-screen">
-      <h1 className="font-serif text-green-900 text-4xl p-12">
-        MedIA — Landing Page
-      </h1>
-      <p className="text-gray-600 p-12">Scaffold working. Design tokens active.</p>
-    </main>
+    <>
+      <NavBar />
+      <HeroSection />
+      <StatsSection />
+      <FeaturesSection />
+      <HowItWorksSection />
+      <TestimonialSection />
+      <FinalCtaSection />
+      <Footer />
+    </>
   );
 }
