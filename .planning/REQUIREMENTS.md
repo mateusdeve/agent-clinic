@@ -10,7 +10,7 @@
 - [ ] **LAND-01**: Visitante ve hero section com proposta de valor e CTA que redireciona para WhatsApp
 - [ ] **LAND-02**: Visitante ve secoes de features, como funciona e depoimento (baseado no site.html)
 - [ ] **LAND-03**: Landing page e responsiva e funcional em dispositivos moveis
-- [ ] **LAND-04**: Landing page segue identidade visual do site.html (paleta verde, DM Serif/DM Sans)
+- [x] **LAND-04**: Landing page segue identidade visual do site.html (paleta verde, DM Serif/DM Sans)
 
 ### Authentication
 
@@ -143,7 +143,7 @@
 | LAND-01 | Phase 1 | Pending |
 | LAND-02 | Phase 1 | Pending |
 | LAND-03 | Phase 1 | Pending |
-| LAND-04 | Phase 1 | Pending |
+| LAND-04 | Phase 1 | Complete |
 | AUTH-01 | Phase 2 | Pending |
 | AUTH-02 | Phase 2 | Pending |
 | AUTH-03 | Phase 2 | Pending |
