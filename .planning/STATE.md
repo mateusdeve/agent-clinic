@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 05-dashboard-campaigns-05-04-PLAN.md
-last_updated: "2026-03-30T15:07:33.521Z"
+stopped_at: Completed 06-polish-hardening-06-02-PLAN.md
+last_updated: "2026-03-30T16:29:23.765Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 6
   completed_phases: 5
-  total_plans: 22
-  completed_plans: 22
+  total_plans: 25
+  completed_plans: 23
   percent: 0
 ---
 
@@ -21,12 +21,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-29)
 
 **Core value:** O paciente consegue agendar, remarcar e tirar duvidas pelo WhatsApp 24h sem intervencao humana, e a equipe da clinica tem visibilidade total das conversas e agendamentos em tempo real.
-**Current focus:** Phase 05 — dashboard-campaigns
+**Current focus:** Phase 06 — polish-hardening
 
 ## Current Position
 
-Phase: 6
-Plan: Not started
+Phase: 06 (polish-hardening) — EXECUTING
+Plan: 2 of 3
 Status: Ready to execute
 Last activity: 2026-03-30
 
@@ -73,6 +73,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 05-dashboard-campaigns P01 | 20min | 2 tasks | 8 files |
 | Phase 05-dashboard-campaigns P03 | 3min | 2 tasks | 3 files |
 | Phase 05-dashboard-campaigns P04 | 12min | 2 tasks | 8 files |
+| Phase 06-polish-hardening P02 | 10min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -135,6 +136,9 @@ Recent decisions affecting current work:
 - [Phase 05-dashboard-campaigns]: buildTemplateColumns factory pattern consistent with buildPatientColumns from Phase 3
 - [Phase 05-dashboard-campaigns]: Textarea cursor-position-aware variable insertion via selectionStart/selectionEnd + requestAnimationFrame
 - [Phase 05-dashboard-campaigns]: Template button in InboxPanel uses absolute positioning over TakeoverBar to avoid restructuring 3-column inbox layout
+- [Phase 06-polish-hardening]: Use unstable_retry (not reset) in error boundary props — Next.js 16.2.x breaking change
+- [Phase 06-polish-hardening]: ErrorAlert is NOT use client — pure presentational for server and client import
+- [Phase 06-polish-hardening]: loading.tsx files are Server Components — no use client directive needed
 
 ### Pending Todos
 
@@ -148,6 +152,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T14:24:50.291Z
-Stopped at: Completed 05-dashboard-campaigns-05-04-PLAN.md
+Last session: 2026-03-30T16:29:23.762Z
+Stopped at: Completed 06-polish-hardening-06-02-PLAN.md
 Resume file: None

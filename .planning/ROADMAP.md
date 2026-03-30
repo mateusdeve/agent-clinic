@@ -124,7 +124,7 @@ Plans:
 **Plans**: 3 plans
 Plans:
 - [ ] 06-01-PLAN.md — Mobile navigation drawer + responsive DataTable/InboxPanel for 375px and 768px
-- [ ] 06-02-PLAN.md — Error boundaries (global-error, dashboard error.tsx) + loading.tsx skeletons + ErrorAlert
+- [x] 06-02-PLAN.md — Error boundaries (global-error, dashboard error.tsx) + loading.tsx skeletons + ErrorAlert
 - [ ] 06-03-PLAN.md — Activate tenant isolation xfail tests + visual verification checkpoint
 
 ## Progress
@@ -139,4 +139,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 3. Core CRUD | 7/7 | Complete   | 2026-03-30 |
 | 4. WhatsApp Panel | 3/3 | Complete   | 2026-03-30 |
 | 5. Dashboard + Campaigns | 4/5 | In Progress|  |
-| 6. Polish + Hardening | 0/3 | Not started | - |
+| 6. Polish + Hardening | 1/3 | In Progress|  |
