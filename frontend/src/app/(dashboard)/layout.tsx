@@ -78,6 +78,18 @@ export default async function DashboardLayout({
                 >
                   Usuarios
                 </a>
+                <a
+                  href="/templates"
+                  className="px-3 py-2 rounded-md text-gray-600 hover:text-gray-800 hover:bg-gray-50 text-sm font-medium transition-colors"
+                >
+                  Templates
+                </a>
+                <a
+                  href="/campanhas"
+                  className="px-3 py-2 rounded-md text-gray-600 hover:text-gray-800 hover:bg-gray-50 text-sm font-medium transition-colors"
+                >
+                  Campanhas
+                </a>
               </>
             )}
           </nav>
