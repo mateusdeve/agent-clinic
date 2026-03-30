@@ -4,6 +4,7 @@ Endpoint principal: POST /webhook/evolution
 Health check: GET /health
 """
 
+import asyncio
 import os
 import logging
 from datetime import datetime
@@ -24,6 +25,10 @@ from src.api.appointments import router as appointments_router
 from src.api.doctors import router as doctors_router
 from src.api.users import router as users_router
 from src.api.conversations import router as conversations_router
+from src.api.dashboard import router as dashboard_router
+from src.api.templates import router as templates_router
+from src.api.campaigns import router as campaigns_router
+from src.api.campaigns import conversations_router as campaigns_conversations_router
 from src.tools.followup import buscar_followups_pendentes, marcar_enviado, montar_mensagem
 
 logging.basicConfig(
@@ -43,18 +48,154 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Monta routers de autenticacao, CRUD e conversas
+# Monta routers de autenticacao, CRUD, conversas, dashboard e campanhas
 app.include_router(auth_router)
 app.include_router(patients_router)
 app.include_router(appointments_router)
 app.include_router(doctors_router)
 app.include_router(users_router)
 app.include_router(conversations_router)
+app.include_router(dashboard_router)
+app.include_router(templates_router)
+app.include_router(campaigns_router)
+app.include_router(campaigns_conversations_router)
 
 # Inicializa dependências
 session_manager = SessionManager(os.getenv("REDIS_URL", ""))
 evolution_client = EvolutionClient()
 scheduler = AsyncIOScheduler()
+
+
+async def dispatch_campaigns():
+    """Processa recipients pendentes de campanhas em lote (20 msg/seg).
+
+    Estrategia: busca LIMIT 100 pendentes, marca como processando
+    (previne double-dispatch), envia via Evolution API com throttle
+    de 0.05s entre mensagens (20 msg/seg, per D-14/WPP-15).
+    """
+    import os
+    import json as _json
+    import psycopg2 as _psycopg2
+
+    from src.api.templates import render_template
+
+    db_url = os.getenv("DATABASE_URL")
+    if not db_url:
+        return
+
+    try:
+        conn = _psycopg2.connect(db_url)
+
+        # Buscar batch de pendentes e marcar como processando (anti double-dispatch)
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                UPDATE campaign_recipients
+                SET status = 'processando', updated_at = NOW()
+                WHERE id IN (
+                    SELECT id FROM campaign_recipients
+                    WHERE status = 'pendente'
+                    ORDER BY id
+                    LIMIT 100
+                    FOR UPDATE SKIP LOCKED
+                )
+                RETURNING id::text, campaign_id::text, phone, variaveis
+                """,
+            )
+            batch = cur.fetchall()
+        conn.commit()
+
+        if not batch:
+            conn.close()
+            return
+
+        logger.info(f"[campaign_dispatcher] Processando {len(batch)} recipients")
+
+        for rec_id, campaign_id, phone, variaveis_raw in batch:
+            try:
+                variaveis = variaveis_raw if isinstance(variaveis_raw, dict) else _json.loads(variaveis_raw or "{}")
+
+                # Buscar template via campaign
+                with conn.cursor() as cur:
+                    cur.execute(
+                        """
+                        SELECT mt.corpo FROM campaigns c
+                        JOIN message_templates mt ON c.template_id = mt.id
+                        WHERE c.id = %s
+                        """,
+                        (campaign_id,),
+                    )
+                    template_row = cur.fetchone()
+
+                if not template_row:
+                    raise ValueError(f"Template nao encontrado para campaign_id={campaign_id}")
+
+                rendered = render_template(template_row[0], variaveis)
+
+                # Enviar via Evolution API
+                await evolution_client.send_message_with_typing(phone, rendered)
+
+                # Marcar como enviado
+                with conn.cursor() as cur:
+                    cur.execute(
+                        """
+                        UPDATE campaign_recipients
+                        SET status = 'enviado', sent_at = NOW(), updated_at = NOW()
+                        WHERE id = %s
+                        """,
+                        (rec_id,),
+                    )
+                conn.commit()
+
+            except Exception as e:
+                logger.error(f"[campaign_dispatcher] Erro ao enviar para {phone}: {e}")
+                with conn.cursor() as cur:
+                    cur.execute(
+                        """
+                        UPDATE campaign_recipients
+                        SET status = 'falha', erro = %s, updated_at = NOW()
+                        WHERE id = %s
+                        """,
+                        (str(e), rec_id),
+                    )
+                conn.commit()
+
+            # Throttle: 20 msg/seg = 0.05s entre envios
+            await asyncio.sleep(0.05)
+
+        # Verificar se campanha concluiu (sem mais pendentes/processando)
+        campaign_ids = list({row[1] for row in batch})
+        for campaign_id in campaign_ids:
+            try:
+                with conn.cursor() as cur:
+                    cur.execute(
+                        """
+                        SELECT COUNT(*) FROM campaign_recipients
+                        WHERE campaign_id = %s AND status IN ('pendente', 'processando')
+                        """,
+                        (campaign_id,),
+                    )
+                    remaining = cur.fetchone()[0]
+
+                if remaining == 0:
+                    with conn.cursor() as cur:
+                        cur.execute(
+                            """
+                            UPDATE campaigns
+                            SET status = 'concluida', enviado_at = NOW()
+                            WHERE id = %s AND status = 'enviando'
+                            """,
+                            (campaign_id,),
+                        )
+                    conn.commit()
+                    logger.info(f"[campaign_dispatcher] Campanha {campaign_id} concluida")
+            except Exception as e:
+                logger.error(f"[campaign_dispatcher] Erro ao verificar conclusao de campanha {campaign_id}: {e}")
+
+        conn.close()
+
+    except Exception as e:
+        logger.error(f"[campaign_dispatcher] Erro geral: {e}")
 
 
 async def dispatch_followups():
@@ -76,8 +217,9 @@ async def dispatch_followups():
 @app.on_event("startup")
 async def startup():
     scheduler.add_job(dispatch_followups, "interval", minutes=5, id="followup_dispatcher")
+    scheduler.add_job(dispatch_campaigns, "interval", seconds=30, id="campaign_dispatcher")
     scheduler.start()
-    logger.info("[scheduler] APScheduler iniciado — follow-ups a cada 5 min")
+    logger.info("[scheduler] APScheduler iniciado — follow-ups a cada 5 min, campanhas a cada 30 seg")
 
 
 @app.on_event("shutdown")
