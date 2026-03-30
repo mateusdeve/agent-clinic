@@ -121,7 +121,11 @@ Plans:
   2. Network errors and API failures show user-friendly error states (not blank screens or console errors leaking to UI)
   3. Cross-tenant isolation passes integration tests: no query in the system returns data from a different tenant_id
   4. Loading states appear for all async operations (table loads, form submissions, real-time connection establishment)
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+- [ ] 06-01-PLAN.md — Mobile navigation drawer + responsive DataTable/InboxPanel for 375px and 768px
+- [ ] 06-02-PLAN.md — Error boundaries (global-error, dashboard error.tsx) + loading.tsx skeletons + ErrorAlert
+- [ ] 06-03-PLAN.md — Activate tenant isolation xfail tests + visual verification checkpoint
 
 ## Progress
 
@@ -135,4 +139,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 3. Core CRUD | 7/7 | Complete   | 2026-03-30 |
 | 4. WhatsApp Panel | 3/3 | Complete   | 2026-03-30 |
 | 5. Dashboard + Campaigns | 4/5 | In Progress|  |
-| 6. Polish + Hardening | 0/TBD | Not started | - |
+| 6. Polish + Hardening | 0/3 | Not started | - |
