@@ -72,7 +72,7 @@ Plans:
 - [x] 03-02-PLAN.md — FastAPI patients + appointments routers with pagination, search, and medico isolation
 - [x] 03-03-PLAN.md — FastAPI doctors + users routers with schedules, role management, and password reset
 - [ ] 03-04-PLAN.md — Custom calendar page (Day/Week/Month) with appointment CRUD slide-over
-- [ ] 03-05-PLAN.md — Patient list page with search + patient profile with appointment/WhatsApp tabs
+- [x] 03-05-PLAN.md — Patient list page with search + patient profile with appointment/WhatsApp tabs
 - [ ] 03-06-PLAN.md — Doctor management with availability grid + user management with role/status controls
 - [ ] 03-07-PLAN.md — Build verification + end-to-end visual walkthrough checkpoint
 **UI hint**: yes
@@ -122,7 +122,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete   | 2026-03-29 |
 | 2. Auth + Multi-Tenancy | 4/4 | Complete   | 2026-03-30 |
-| 3. Core CRUD | 3/7 | In Progress|  |
+| 3. Core CRUD | 4/7 | In Progress|  |
 | 4. WhatsApp Panel | 0/TBD | Not started | - |
 | 5. Dashboard + Campaigns | 0/TBD | Not started | - |
 | 6. Polish + Hardening | 0/TBD | Not started | - |
