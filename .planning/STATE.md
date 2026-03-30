@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-01-PLAN.md
-last_updated: "2026-03-30T03:06:57.880Z"
+stopped_at: Completed 03-02-PLAN.md
+last_updated: "2026-03-30T03:18:18.231Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 6
   completed_phases: 2
   total_plans: 14
-  completed_plans: 8
+  completed_plans: 9
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-03-29)
 ## Current Position
 
 Phase: 03 (core-crud) — EXECUTING
-Plan: 2 of 7
+Plan: 3 of 7
 Status: Ready to execute
 Last activity: 2026-03-30
 
@@ -60,6 +60,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 02-auth-multi-tenancy P02 | 10min | 2 tasks | 4 files |
 | Phase 02-auth-multi-tenancy P03 | 25min | 3 tasks | 13 files |
 | Phase 03-core-crud P01 | 13min | 2 tasks | 15 files |
+| Phase 03-core-crud P02 | 5min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -91,6 +92,9 @@ Recent decisions affecting current work:
 - [Phase 03-core-crud]: shadcn CLI succeeded in Phase 3 — all 6 primitives installed without manual fallback (unlike Phase 1)
 - [Phase 03-core-crud]: apiFetch accesses session.access_token via unknown cast matching NextAuth v5 beta session shape
 - [Phase 03-core-crud]: DataTable uses React.Dispatch<SetStateAction<PaginationState>> for functional updater pattern compatibility with @tanstack/react-table
+- [Phase 03-core-crud]: Appointments table column names: used COALESCE(appointment_date, data_agendamento) in read queries for backward compat with bot legacy columns
+- [Phase 03-core-crud]: Migration 004 extended with appointments CRUD columns (data_agendamento, horario_agendamento, patient_id, motivo_cancelamento) via idempotent IF NOT EXISTS DDL
+- [Phase 03-core-crud]: Medico with no linked doctor record returns empty results instead of 403 for security
 
 ### Pending Todos
 
@@ -104,6 +108,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T03:06:57.877Z
-Stopped at: Completed 03-01-PLAN.md
+Last session: 2026-03-30T03:18:18.229Z
+Stopped at: Completed 03-02-PLAN.md
 Resume file: None

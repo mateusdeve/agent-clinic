@@ -37,20 +37,20 @@
 ### Appointment Management (Agenda)
 
 - [ ] **AGENDA-01**: Recepcionista ve calendario visual (dia/semana/mes) com filtro por medico
-- [ ] **AGENDA-02**: Recepcionista pode criar agendamento manualmente (paciente, medico, data, hora, especialidade)
-- [ ] **AGENDA-03**: Recepcionista pode editar/remarcar agendamento existente
-- [ ] **AGENDA-04**: Recepcionista pode cancelar agendamento com motivo opcional
+- [x] **AGENDA-02**: Recepcionista pode criar agendamento manualmente (paciente, medico, data, hora, especialidade)
+- [x] **AGENDA-03**: Recepcionista pode editar/remarcar agendamento existente
+- [x] **AGENDA-04**: Recepcionista pode cancelar agendamento com motivo opcional
 - [x] **AGENDA-05**: Agendamentos tem status tracking: Agendado > Confirmado > Realizado > Cancelado
 - [x] **AGENDA-06**: Admin pode bloquear horarios (ferias, almoco, indisponibilidade)
 - [x] **AGENDA-07**: Medico ve apenas sua propria agenda
 
 ### Patient Management
 
-- [ ] **PAT-01**: Recepcionista ve lista de pacientes com busca por nome/telefone
+- [x] **PAT-01**: Recepcionista ve lista de pacientes com busca por nome/telefone
 - [x] **PAT-02**: Recepcionista pode criar paciente manualmente (nome, telefone, data nascimento, notas)
 - [x] **PAT-03**: Recepcionista pode editar dados de paciente
-- [ ] **PAT-04**: Pagina de perfil do paciente mostra historico de consultas
-- [ ] **PAT-05**: Pagina de perfil do paciente mostra historico de conversas WhatsApp
+- [x] **PAT-04**: Pagina de perfil do paciente mostra historico de consultas
+- [x] **PAT-05**: Pagina de perfil do paciente mostra historico de conversas WhatsApp
 
 ### WhatsApp Panel — Inbox
 
@@ -156,17 +156,17 @@
 | API-02 | Phase 2 | Complete |
 | API-03 | Phase 2 | Complete |
 | AGENDA-01 | Phase 3 | Pending |
-| AGENDA-02 | Phase 3 | Pending |
-| AGENDA-03 | Phase 3 | Pending |
-| AGENDA-04 | Phase 3 | Pending |
+| AGENDA-02 | Phase 3 | Complete |
+| AGENDA-03 | Phase 3 | Complete |
+| AGENDA-04 | Phase 3 | Complete |
 | AGENDA-05 | Phase 3 | Complete |
 | AGENDA-06 | Phase 3 | Complete |
 | AGENDA-07 | Phase 3 | Complete |
-| PAT-01 | Phase 3 | Pending |
+| PAT-01 | Phase 3 | Complete |
 | PAT-02 | Phase 3 | Complete |
 | PAT-03 | Phase 3 | Complete |
-| PAT-04 | Phase 3 | Pending |
-| PAT-05 | Phase 3 | Pending |
+| PAT-04 | Phase 3 | Complete |
+| PAT-05 | Phase 3 | Complete |
 | DOC-01 | Phase 3 | Pending |
 | DOC-02 | Phase 3 | Complete |
 | DOC-03 | Phase 3 | Complete |
