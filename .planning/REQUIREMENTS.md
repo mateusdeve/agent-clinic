@@ -16,9 +16,9 @@
 
 - [x] **AUTH-01**: Usuario pode fazer login com email e senha
 - [x] **AUTH-02**: Usuario pode fazer logout de qualquer pagina
-- [ ] **AUTH-03**: Sessao do usuario persiste entre recarregamentos do browser (JWT + refresh token)
+- [x] **AUTH-03**: Sessao do usuario persiste entre recarregamentos do browser (JWT + refresh token)
 - [x] **AUTH-04**: Sistema suporta tres roles: Admin, Recepcionista, Medico
-- [ ] **AUTH-05**: Rotas protegidas redirecionam usuario nao autenticado para login
+- [x] **AUTH-05**: Rotas protegidas redirecionam usuario nao autenticado para login
 - [x] **AUTH-06**: Funcionalidades sao restritas por role (RBAC)
 
 ### Multi-Tenancy
@@ -94,7 +94,7 @@
 ### Backend API
 
 - [ ] **API-01**: FastAPI expoe endpoints REST para todas as entidades (patients, appointments, doctors, users, conversations)
-- [ ] **API-02**: FastAPI implementa autenticacao JWT com refresh token
+- [x] **API-02**: FastAPI implementa autenticacao JWT com refresh token
 - [x] **API-03**: FastAPI implementa middleware de multi-tenancy com filtro automatico por tenant_id
 - [ ] **API-04**: FastAPI integra Socket.IO para streaming de mensagens WhatsApp em tempo real
 
@@ -146,14 +146,14 @@
 | LAND-04 | Phase 1 | Complete |
 | AUTH-01 | Phase 2 | Complete |
 | AUTH-02 | Phase 2 | Complete |
-| AUTH-03 | Phase 2 | Pending |
+| AUTH-03 | Phase 2 | Complete |
 | AUTH-04 | Phase 2 | Complete |
-| AUTH-05 | Phase 2 | Pending |
+| AUTH-05 | Phase 2 | Complete |
 | AUTH-06 | Phase 2 | Complete |
 | TENANT-01 | Phase 2 | Complete |
 | TENANT-02 | Phase 2 | Complete |
 | TENANT-03 | Phase 2 | Complete |
-| API-02 | Phase 2 | Pending |
+| API-02 | Phase 2 | Complete |
 | API-03 | Phase 2 | Complete |
 | AGENDA-01 | Phase 3 | Pending |
 | AGENDA-02 | Phase 3 | Pending |

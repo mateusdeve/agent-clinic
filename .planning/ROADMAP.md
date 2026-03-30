@@ -13,7 +13,7 @@ MedIA is built in six phases that respect hard data dependencies. Foundation and
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation** - Next.js project, design system, and public landing page (completed 2026-03-29)
-- [ ] **Phase 2: Auth + Multi-Tenancy** - Login, JWT, roles, tenant isolation, backend API layer
+- [x] **Phase 2: Auth + Multi-Tenancy** - Login, JWT, roles, tenant isolation, backend API layer (completed 2026-03-30)
 - [ ] **Phase 3: Core CRUD** - Patients, doctors, appointments, and user management
 - [ ] **Phase 4: WhatsApp Panel** - Real-time inbox, conversation history, and human takeover
 - [ ] **Phase 5: Dashboard + Campaigns** - KPI metrics, charts, message templates, and bulk campaigns
@@ -53,7 +53,7 @@ Plans:
 - [x] 02-00-PLAN.md — Wave 0: pytest config + test stubs for auth, RBAC, and tenant isolation
 - [x] 02-01-PLAN.md — Alembic init + migrations: tenants, users, tenant_id columns, RLS policies
 - [x] 02-02-PLAN.md — FastAPI auth endpoints (login, refresh, me) + deps (tenant, role) + CORS
-- [ ] 02-03-PLAN.md — NextAuth v5 + login page + proxy.ts route protection + dashboard shell with RBAC
+- [x] 02-03-PLAN.md — NextAuth v5 + login page + proxy.ts route protection + dashboard shell with RBAC
 **UI hint**: yes
 
 ### Phase 3: Core CRUD
@@ -113,7 +113,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete   | 2026-03-29 |
-| 2. Auth + Multi-Tenancy | 3/4 | In Progress|  |
+| 2. Auth + Multi-Tenancy | 4/4 | Complete   | 2026-03-30 |
 | 3. Core CRUD | 0/TBD | Not started | - |
 | 4. WhatsApp Panel | 0/TBD | Not started | - |
 | 5. Dashboard + Campaigns | 0/TBD | Not started | - |
