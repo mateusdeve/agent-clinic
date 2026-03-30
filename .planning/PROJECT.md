@@ -27,11 +27,11 @@ O paciente consegue agendar, remarcar e tirar duvidas pelo WhatsApp 24h por dia 
 - ✓ Landing page de captura com redirect para WhatsApp — Validated in Phase 01: Foundation
 - ✓ Autenticacao e controle de acesso (Admin, Recepcionista, Medico) — Validated in Phase 02: Auth + Multi-Tenancy
 - ✓ Multi-tenancy: isolamento de dados por clinica — Validated in Phase 02: Auth + Multi-Tenancy
-- [ ] Dashboard principal com metricas (ocupacao, confirmacoes, conversas)
+- ✓ Dashboard principal com metricas (ocupacao, confirmacoes, conversas) — Validated in Phase 05: Dashboard + Campaigns
 - ✓ Painel WhatsApp: conversas em tempo real — Validated in Phase 04: WhatsApp Panel
 - ✓ Painel WhatsApp: historico completo com busca — Validated in Phase 04: WhatsApp Panel
 - ✓ Painel WhatsApp: takeover manual (humano assume da IA) — Validated in Phase 04: WhatsApp Panel
-- [ ] Painel WhatsApp: templates e campanhas de mensagens em massa
+- ✓ Painel WhatsApp: templates e campanhas de mensagens em massa — Validated in Phase 05: Dashboard + Campaigns
 - ✓ Gestao de agenda (visualizacao, bloqueio de horarios, remarcacao) — Validated in Phase 03: Core CRUD
 - ✓ Gestao de pacientes (cadastro, historico, contatos) — Validated in Phase 03: Core CRUD
 - ✓ Gestao de medicos/profissionais (perfil, especialidades, horarios) — Validated in Phase 03: Core CRUD
@@ -94,4 +94,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-30 after Phase 03 completion — full CRUD for patients, doctors, appointments, users with calendar UI*
+*Last updated: 2026-03-30 after Phase 05 completion — dashboard with KPIs, templates CRUD, campaign wizard with dispatch, QuickSend in inbox*
