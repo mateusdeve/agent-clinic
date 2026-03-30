@@ -25,8 +25,8 @@ O paciente consegue agendar, remarcar e tirar duvidas pelo WhatsApp 24h por dia 
 ### Active
 
 - ✓ Landing page de captura com redirect para WhatsApp — Validated in Phase 01: Foundation
-- [ ] Autenticacao e controle de acesso (Admin, Recepcionista, Medico)
-- [ ] Multi-tenancy: isolamento de dados por clinica
+- ✓ Autenticacao e controle de acesso (Admin, Recepcionista, Medico) — Validated in Phase 02: Auth + Multi-Tenancy
+- ✓ Multi-tenancy: isolamento de dados por clinica — Validated in Phase 02: Auth + Multi-Tenancy
 - [ ] Dashboard principal com metricas (ocupacao, confirmacoes, conversas)
 - [ ] Painel WhatsApp: conversas em tempo real
 - [ ] Painel WhatsApp: historico completo com busca
@@ -71,10 +71,10 @@ O paciente consegue agendar, remarcar e tirar duvidas pelo WhatsApp 24h por dia 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
 | Next.js + Tailwind para frontend | Stack moderna, SSR para landing page SEO, produtividade alta | ✓ Validated in Phase 01 |
-| SaaS multi-tenant desde v1 | Evita rewrite futuro, arquitetura escalavel | — Pending |
+| SaaS multi-tenant desde v1 | Evita rewrite futuro, arquitetura escalavel | ✓ Validated in Phase 02 |
 | Landing page redireciona para WhatsApp | Funil direto, sem sequencia de emails, conversao imediata | ✓ Validated in Phase 01 |
 | Sem portal do paciente em v1 | Foco na equipe da clinica, reduz escopo | — Pending |
-| Tres roles: Admin, Recepcionista, Medico | Cobre os fluxos essenciais sem complexidade excessiva | — Pending |
+| Tres roles: Admin, Recepcionista, Medico | Cobre os fluxos essenciais sem complexidade excessiva | ✓ Validated in Phase 02 |
 
 ## Evolution
 
@@ -94,4 +94,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-29 after Phase 01 completion — landing page delivered with Next.js + Tailwind 4 + shadcn/ui*
+*Last updated: 2026-03-30 after Phase 02 completion — auth + multi-tenancy with NextAuth v5, FastAPI JWT, PostgreSQL RLS*
