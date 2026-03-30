@@ -6,6 +6,7 @@ Health check: GET /health
 
 import os
 import logging
+from datetime import datetime
 
 from fastapi import FastAPI, Request, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
@@ -22,6 +23,7 @@ from src.api.patients import router as patients_router
 from src.api.appointments import router as appointments_router
 from src.api.doctors import router as doctors_router
 from src.api.users import router as users_router
+from src.api.conversations import router as conversations_router
 from src.tools.followup import buscar_followups_pendentes, marcar_enviado, montar_mensagem
 
 logging.basicConfig(
@@ -41,12 +43,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Monta routers de autenticacao e CRUD
+# Monta routers de autenticacao, CRUD e conversas
 app.include_router(auth_router)
 app.include_router(patients_router)
 app.include_router(appointments_router)
 app.include_router(doctors_router)
 app.include_router(users_router)
+app.include_router(conversations_router)
 
 # Inicializa dependências
 session_manager = SessionManager(os.getenv("REDIS_URL", ""))
@@ -136,6 +139,20 @@ async def webhook_evolution(request: Request, background_tasks: BackgroundTasks)
 
     logger.info(f"Mensagem recebida de {phone}: {text[:80]}...")
 
+    # Check takeover flag — skip Sofia if human is in control (WPP-10, D-07)
+    # MUST happen BEFORE handle_message dispatch (research Pitfall 4)
+    clean_phone = phone.split("@")[0]
+    from src.api.socketio_server import redis_client, broadcast_new_message  # lazy import (circular safe)
+    takeover_raw = await redis_client.get(f"takeover:{clean_phone}")
+    if takeover_raw:
+        # Store message + broadcast to panel — do NOT invoke Sofia
+        background_tasks.add_task(
+            _handle_inbound_takeover,
+            phone=phone,
+            text=text,
+        )
+        return {"status": "takeover_mode"}
+
     # Processa em background para responder rápido ao webhook
     background_tasks.add_task(
         handle_message,
@@ -145,6 +162,18 @@ async def webhook_evolution(request: Request, background_tasks: BackgroundTasks)
         evolution=evolution_client,
     )
 
+    # Broadcast inbound patient message to panel viewers (WPP-04)
+    background_tasks.add_task(
+        broadcast_new_message,
+        clean_phone,
+        {
+            "phone": clean_phone,
+            "role": "user",
+            "content": text,
+            "created_at": datetime.utcnow().isoformat(),
+        },
+    )
+
     return {"status": "processing"}
 
 
@@ -152,3 +181,24 @@ async def webhook_evolution(request: Request, background_tasks: BackgroundTasks)
 async def health():
     """Health check do servidor."""
     return {"status": "ok", "service": "agent-clinic-whatsapp"}
+
+
+async def _handle_inbound_takeover(phone: str, text: str):
+    """Armazena mensagem do paciente durante takeover. Nao invoca Sofia.
+
+    Persiste na tabela conversations e faz broadcast via Socket.IO
+    para que o painel mostre a mensagem em tempo real (D-10).
+    """
+    import asyncio
+    from src.memory.persistence import save_messages
+    from langchain_core.messages import HumanMessage
+    from src.api.socketio_server import broadcast_new_message
+
+    await asyncio.to_thread(save_messages, phone, [HumanMessage(content=text)])
+    clean_phone = phone.split("@")[0]
+    await broadcast_new_message(clean_phone, {
+        "phone": clean_phone,
+        "role": "user",
+        "content": text,
+        "created_at": datetime.utcnow().isoformat(),
+    })
