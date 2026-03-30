@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 5 context gathered
-last_updated: "2026-03-30T13:10:49.279Z"
+stopped_at: Completed 05-02-PLAN.md
+last_updated: "2026-03-30T14:13:06.915Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 6
   completed_phases: 4
-  total_plans: 17
-  completed_plans: 17
+  total_plans: 22
+  completed_plans: 18
   percent: 0
 ---
 
@@ -21,12 +21,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-29)
 
 **Core value:** O paciente consegue agendar, remarcar e tirar duvidas pelo WhatsApp 24h sem intervencao humana, e a equipe da clinica tem visibilidade total das conversas e agendamentos em tempo real.
-**Current focus:** Phase 04 — whatsapp-panel
+**Current focus:** Phase 05 — dashboard-campaigns
 
 ## Current Position
 
-Phase: 5
-Plan: Not started
+Phase: 05 (dashboard-campaigns) — EXECUTING
+Plan: 2 of 5
 Status: Ready to execute
 Last activity: 2026-03-30
 
@@ -69,6 +69,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 04-whatsapp-panel PP01 | 5min | 3 tasks | 7 files |
 | Phase 04-whatsapp-panel P02 | 6min | 2 tasks | 10 files |
 | Phase 04-whatsapp-panel P03 | 5min | 2 tasks | 0 files |
+| Phase 05-dashboard-campaigns P02 | 15min | 2 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -121,6 +122,9 @@ Recent decisions affecting current work:
 - [Phase 04-whatsapp-panel]: Socket.IO singleton uses default namespace (no /inbox) to match socketio_server.py server setup
 - [Phase 04-whatsapp-panel]: InboxPanel uses -m-6 to escape main p-6 padding for full-height 3-column layout
 - [Phase 04-whatsapp-panel]: PatientSidebar conditionally rendered — hidden when no conversation selected
+- [Phase 05-dashboard-campaigns]: KpiCard is RSC (no use client) — pure presentational with icon + label + value
+- [Phase 05-dashboard-campaigns]: Recharts LineChart and BarChart each have use client directive per SSR pitfall rule
+- [Phase 05-dashboard-campaigns]: Admin-only charts conditional render (not display:none) — prevents unnecessary API fetches
 
 ### Pending Todos
 
@@ -134,6 +138,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T13:10:49.274Z
-Stopped at: Phase 5 context gathered
-Resume file: .planning/phases/05-dashboard-campaigns/05-CONTEXT.md
+Last session: 2026-03-30T14:13:06.913Z
+Stopped at: Completed 05-02-PLAN.md
+Resume file: None

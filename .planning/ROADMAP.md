@@ -106,7 +106,7 @@ Plans:
 **Plans**: 5 plans
 Plans:
 - [ ] 05-01-PLAN.md — Migration 005 + dashboard/templates/campaigns backend routers + test stubs
-- [ ] 05-02-PLAN.md — Install recharts + dashboard /home page rewrite + KPI cards + charts + sidebar nav
+- [x] 05-02-PLAN.md — Install recharts + dashboard /home page rewrite + KPI cards + charts + sidebar nav
 - [ ] 05-03-PLAN.md — Templates page with CRUD, slide-over form, and live preview
 - [ ] 05-04-PLAN.md — Campaigns list page, step wizard, detail page, and QuickSend in inbox
 - [ ] 05-05-PLAN.md — Build verification + visual walkthrough checkpoint

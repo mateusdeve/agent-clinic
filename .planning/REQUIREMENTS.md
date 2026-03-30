@@ -29,10 +29,10 @@
 
 ### Dashboard
 
-- [ ] **DASH-01**: Admin/Recepcionista ve KPIs: consultas hoje, taxa de ocupacao, no-shows, confirmacoes pendentes
-- [ ] **DASH-02**: Admin/Recepcionista ve lista das proximas consultas do dia
-- [ ] **DASH-03**: Admin/Recepcionista ve contador de conversas WhatsApp ativas
-- [ ] **DASH-04**: Admin ve graficos de tendencias semanais, funil de conversao e receita por especialidade
+- [x] **DASH-01**: Admin/Recepcionista ve KPIs: consultas hoje, taxa de ocupacao, no-shows, confirmacoes pendentes
+- [x] **DASH-02**: Admin/Recepcionista ve lista das proximas consultas do dia
+- [x] **DASH-03**: Admin/Recepcionista ve contador de conversas WhatsApp ativas
+- [x] **DASH-04**: Admin ve graficos de tendencias semanais, funil de conversao e receita por especialidade
 
 ### Appointment Management (Agenda)
 
@@ -188,10 +188,10 @@
 | WPP-10 | Phase 4 | Complete |
 | WPP-11 | Phase 4 | Complete |
 | API-04 | Phase 4 | Complete |
-| DASH-01 | Phase 5 | Pending |
-| DASH-02 | Phase 5 | Pending |
-| DASH-03 | Phase 5 | Pending |
-| DASH-04 | Phase 5 | Pending |
+| DASH-01 | Phase 5 | Complete |
+| DASH-02 | Phase 5 | Complete |
+| DASH-03 | Phase 5 | Complete |
+| DASH-04 | Phase 5 | Complete |
 | WPP-12 | Phase 5 | Pending |
 | WPP-13 | Phase 5 | Pending |
 | WPP-14 | Phase 5 | Pending |
