@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 3 context gathered
-last_updated: "2026-03-30T01:57:38.566Z"
+stopped_at: Completed 03-01-PLAN.md
+last_updated: "2026-03-30T03:06:57.880Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 6
   completed_phases: 2
-  total_plans: 7
-  completed_plans: 7
+  total_plans: 14
+  completed_plans: 8
   percent: 0
 ---
 
@@ -21,12 +21,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-29)
 
 **Core value:** O paciente consegue agendar, remarcar e tirar duvidas pelo WhatsApp 24h sem intervencao humana, e a equipe da clinica tem visibilidade total das conversas e agendamentos em tempo real.
-**Current focus:** Phase 02 — auth-multi-tenancy
+**Current focus:** Phase 03 — core-crud
 
 ## Current Position
 
-Phase: 3
-Plan: Not started
+Phase: 03 (core-crud) — EXECUTING
+Plan: 2 of 7
 Status: Ready to execute
 Last activity: 2026-03-30
 
@@ -59,6 +59,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 02-auth-multi-tenancy P01 | 15min | 3 tasks | 6 files |
 | Phase 02-auth-multi-tenancy P02 | 10min | 2 tasks | 4 files |
 | Phase 02-auth-multi-tenancy P03 | 25min | 3 tasks | 13 files |
+| Phase 03-core-crud P01 | 13min | 2 tasks | 15 files |
 
 ## Accumulated Context
 
@@ -87,6 +88,9 @@ Recent decisions affecting current work:
 - [Phase 02-auth-multi-tenancy]: CORS allow_origins reads FRONTEND_URL env var with localhost:3000 fallback — no hardcoded production origins
 - [Phase 02-auth-multi-tenancy]: proxy.ts exports proxy function (not middleware) — Next.js 16.2.1 uses proxy.ts per research Pattern 2
 - [Phase 02-auth-multi-tenancy]: NextAuth v5 beta jwt callback User type — use ExtendedUser local cast; Session augmentation removed to preserve DefaultSession.user inheritance; auth.d.ts pulled in via triple-slash reference
+- [Phase 03-core-crud]: shadcn CLI succeeded in Phase 3 — all 6 primitives installed without manual fallback (unlike Phase 1)
+- [Phase 03-core-crud]: apiFetch accesses session.access_token via unknown cast matching NextAuth v5 beta session shape
+- [Phase 03-core-crud]: DataTable uses React.Dispatch<SetStateAction<PaginationState>> for functional updater pattern compatibility with @tanstack/react-table
 
 ### Pending Todos
 
@@ -100,6 +104,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T01:57:38.563Z
-Stopped at: Phase 3 context gathered
-Resume file: .planning/phases/03-core-crud/03-CONTEXT.md
+Last session: 2026-03-30T03:06:57.877Z
+Stopped at: Completed 03-01-PLAN.md
+Resume file: None

@@ -40,15 +40,15 @@
 - [ ] **AGENDA-02**: Recepcionista pode criar agendamento manualmente (paciente, medico, data, hora, especialidade)
 - [ ] **AGENDA-03**: Recepcionista pode editar/remarcar agendamento existente
 - [ ] **AGENDA-04**: Recepcionista pode cancelar agendamento com motivo opcional
-- [ ] **AGENDA-05**: Agendamentos tem status tracking: Agendado > Confirmado > Realizado > Cancelado
-- [ ] **AGENDA-06**: Admin pode bloquear horarios (ferias, almoco, indisponibilidade)
-- [ ] **AGENDA-07**: Medico ve apenas sua propria agenda
+- [x] **AGENDA-05**: Agendamentos tem status tracking: Agendado > Confirmado > Realizado > Cancelado
+- [x] **AGENDA-06**: Admin pode bloquear horarios (ferias, almoco, indisponibilidade)
+- [x] **AGENDA-07**: Medico ve apenas sua propria agenda
 
 ### Patient Management
 
 - [ ] **PAT-01**: Recepcionista ve lista de pacientes com busca por nome/telefone
-- [ ] **PAT-02**: Recepcionista pode criar paciente manualmente (nome, telefone, data nascimento, notas)
-- [ ] **PAT-03**: Recepcionista pode editar dados de paciente
+- [x] **PAT-02**: Recepcionista pode criar paciente manualmente (nome, telefone, data nascimento, notas)
+- [x] **PAT-03**: Recepcionista pode editar dados de paciente
 - [ ] **PAT-04**: Pagina de perfil do paciente mostra historico de consultas
 - [ ] **PAT-05**: Pagina de perfil do paciente mostra historico de conversas WhatsApp
 
@@ -80,8 +80,8 @@
 ### Doctor Management
 
 - [ ] **DOC-01**: Admin ve lista de medicos com especialidade
-- [ ] **DOC-02**: Admin pode criar/editar perfil de medico (nome, especialidade, CRM, horarios)
-- [ ] **DOC-03**: Admin pode definir grade de disponibilidade por medico (dia x horarios)
+- [x] **DOC-02**: Admin pode criar/editar perfil de medico (nome, especialidade, CRM, horarios)
+- [x] **DOC-03**: Admin pode definir grade de disponibilidade por medico (dia x horarios)
 
 ### User Management
 
@@ -93,7 +93,7 @@
 
 ### Backend API
 
-- [ ] **API-01**: FastAPI expoe endpoints REST para todas as entidades (patients, appointments, doctors, users, conversations)
+- [x] **API-01**: FastAPI expoe endpoints REST para todas as entidades (patients, appointments, doctors, users, conversations)
 - [x] **API-02**: FastAPI implementa autenticacao JWT com refresh token
 - [x] **API-03**: FastAPI implementa middleware de multi-tenancy com filtro automatico por tenant_id
 - [ ] **API-04**: FastAPI integra Socket.IO para streaming de mensagens WhatsApp em tempo real
@@ -159,23 +159,23 @@
 | AGENDA-02 | Phase 3 | Pending |
 | AGENDA-03 | Phase 3 | Pending |
 | AGENDA-04 | Phase 3 | Pending |
-| AGENDA-05 | Phase 3 | Pending |
-| AGENDA-06 | Phase 3 | Pending |
-| AGENDA-07 | Phase 3 | Pending |
+| AGENDA-05 | Phase 3 | Complete |
+| AGENDA-06 | Phase 3 | Complete |
+| AGENDA-07 | Phase 3 | Complete |
 | PAT-01 | Phase 3 | Pending |
-| PAT-02 | Phase 3 | Pending |
-| PAT-03 | Phase 3 | Pending |
+| PAT-02 | Phase 3 | Complete |
+| PAT-03 | Phase 3 | Complete |
 | PAT-04 | Phase 3 | Pending |
 | PAT-05 | Phase 3 | Pending |
 | DOC-01 | Phase 3 | Pending |
-| DOC-02 | Phase 3 | Pending |
-| DOC-03 | Phase 3 | Pending |
+| DOC-02 | Phase 3 | Complete |
+| DOC-03 | Phase 3 | Complete |
 | USER-01 | Phase 3 | Pending |
 | USER-02 | Phase 3 | Pending |
 | USER-03 | Phase 3 | Pending |
 | USER-04 | Phase 3 | Pending |
 | USER-05 | Phase 3 | Pending |
-| API-01 | Phase 3 | Pending |
+| API-01 | Phase 3 | Complete |
 | WPP-01 | Phase 4 | Pending |
 | WPP-02 | Phase 4 | Pending |
 | WPP-03 | Phase 4 | Pending |
