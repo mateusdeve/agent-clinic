@@ -66,7 +66,15 @@ Plans:
   3. Admin can create a doctor profile with specialty, CRM, and weekly availability grid
   4. Medico logs in and sees only their own appointment calendar, not other doctors' schedules
   5. Admin can create, deactivate, and change the role of a system user
-**Plans**: TBD
+**Plans**: 7 plans
+Plans:
+- [ ] 03-01-PLAN.md — Migration 004, frontend deps, shared types, API wrapper, reusable components (DataTable, SlideOver, StatusBadge)
+- [ ] 03-02-PLAN.md — FastAPI patients + appointments routers with pagination, search, and medico isolation
+- [ ] 03-03-PLAN.md — FastAPI doctors + users routers with schedules, role management, and password reset
+- [ ] 03-04-PLAN.md — Custom calendar page (Day/Week/Month) with appointment CRUD slide-over
+- [ ] 03-05-PLAN.md — Patient list page with search + patient profile with appointment/WhatsApp tabs
+- [ ] 03-06-PLAN.md — Doctor management with availability grid + user management with role/status controls
+- [ ] 03-07-PLAN.md — Build verification + end-to-end visual walkthrough checkpoint
 **UI hint**: yes
 
 ### Phase 4: WhatsApp Panel
@@ -114,7 +122,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete   | 2026-03-29 |
 | 2. Auth + Multi-Tenancy | 4/4 | Complete   | 2026-03-30 |
-| 3. Core CRUD | 0/TBD | Not started | - |
+| 3. Core CRUD | 0/7 | Not started | - |
 | 4. WhatsApp Panel | 0/TBD | Not started | - |
 | 5. Dashboard + Campaigns | 0/TBD | Not started | - |
 | 6. Polish + Hardening | 0/TBD | Not started | - |
