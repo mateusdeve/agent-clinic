@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-05-PLAN.md
-last_updated: "2026-03-30T03:29:11.812Z"
+stopped_at: Completed 03-06-PLAN.md
+last_updated: "2026-03-30T03:30:40.687Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 6
   completed_phases: 2
   total_plans: 14
-  completed_plans: 11
+  completed_plans: 12
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-03-29)
 ## Current Position
 
 Phase: 03 (core-crud) — EXECUTING
-Plan: 5 of 7
+Plan: 6 of 7
 Status: Ready to execute
 Last activity: 2026-03-30
 
@@ -63,6 +63,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 03-core-crud P02 | 5min | 2 tasks | 4 files |
 | Phase 03-core-crud P03 | 4min | 2 tasks | 3 files |
 | Phase 03-core-crud P05 | 12min | 2 tasks | 6 files |
+| Phase 03-core-crud P06 | 4min | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -102,6 +103,8 @@ Recent decisions affecting current work:
 - [Phase 03-core-crud]: Password reset is admin-managed only in Phase 3 — self-service email flow deferred to v2
 - [Phase 03-core-crud]: buildPatientColumns factory exports function (not array) to allow action callbacks without prop drilling through DataTable
 - [Phase 03-core-crud]: WhatsApp timeline: user=bg-green-500 right bubble, bot=bg-white border left bubble — matches D-10 visual spec
+- [Phase 03-core-crud]: schedule-grid uses DAY_INDICES mapping for Mon-Sun display order, converting from API day_of_week (0=Sunday)
+- [Phase 03-core-crud]: zod v4 enum uses 'as const' not required_error — zod v4 removed required_error from enum overload signature
 
 ### Pending Todos
 
@@ -115,6 +118,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T03:29:11.793Z
-Stopped at: Completed 03-05-PLAN.md
+Last session: 2026-03-30T03:30:40.684Z
+Stopped at: Completed 03-06-PLAN.md
 Resume file: None
