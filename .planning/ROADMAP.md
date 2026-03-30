@@ -125,7 +125,7 @@ Plans:
 Plans:
 - [x] 06-01-PLAN.md — Mobile navigation drawer + responsive DataTable/InboxPanel for 375px and 768px
 - [x] 06-02-PLAN.md — Error boundaries (global-error, dashboard error.tsx) + loading.tsx skeletons + ErrorAlert
-- [ ] 06-03-PLAN.md — Activate tenant isolation xfail tests + visual verification checkpoint
+- [x] 06-03-PLAN.md — Activate tenant isolation xfail tests + visual verification checkpoint
 
 ## Progress
 
