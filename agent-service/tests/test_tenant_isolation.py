@@ -3,7 +3,6 @@ import pytest
 
 
 @pytest.mark.tenant
-@pytest.mark.xfail(reason="Plan 01 not yet executed")
 def test_rls_policies_exist(db_conn):
     """RLS policies are enabled on all data tables (TENANT-01)."""
     cursor = db_conn.cursor()
@@ -20,7 +19,6 @@ def test_rls_policies_exist(db_conn):
 
 
 @pytest.mark.tenant
-@pytest.mark.xfail(reason="Plan 01 not yet executed")
 def test_tenant_isolation_across_clinics(db_conn, default_tenant_id):
     """A query with app.tenant_id = clinic_A never returns rows from clinic_B (TENANT-02)."""
     cursor = db_conn.cursor()
@@ -32,7 +30,6 @@ def test_tenant_isolation_across_clinics(db_conn, default_tenant_id):
 
 
 @pytest.mark.tenant
-@pytest.mark.xfail(reason="Plan 02 not yet executed")
 def test_get_db_for_tenant_sets_session_var(test_client):
     """get_db_for_tenant executes SET LOCAL app.tenant_id (TENANT-02, TENANT-03)."""
     pass
