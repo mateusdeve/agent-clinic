@@ -48,3 +48,69 @@ def test_client(fastapi_app):
     """FastAPI TestClient — available after Plan 02."""
     from fastapi.testclient import TestClient
     return TestClient(fastapi_app)
+
+
+@pytest.fixture
+def mock_redis(monkeypatch):
+    """Mock redis.asyncio client — simulates takeover flag operations.
+
+    Monkeypatches src.api.socketio_server.redis_client.
+    """
+    from unittest.mock import AsyncMock
+
+    mock = AsyncMock()
+    mock.get = AsyncMock(return_value=None)
+    mock.set = AsyncMock(return_value=None)
+    mock.delete = AsyncMock(return_value=None)
+
+    try:
+        import src.api.socketio_server as sio_module
+        monkeypatch.setattr(sio_module, "redis_client", mock)
+    except Exception:
+        pass
+
+    return mock
+
+
+@pytest.fixture
+def mock_sio(monkeypatch):
+    """Mock socketio.AsyncServer — simulates emit and save_session calls.
+
+    Monkeypatches src.api.socketio_server.sio.
+    """
+    from unittest.mock import AsyncMock, MagicMock
+
+    mock = AsyncMock()
+    mock.emit = AsyncMock(return_value=None)
+    mock.save_session = AsyncMock(return_value=None)
+    mock.enter_room = AsyncMock(return_value=None)
+    mock.leave_room = AsyncMock(return_value=None)
+
+    try:
+        import src.api.socketio_server as sio_module
+        monkeypatch.setattr(sio_module, "sio", mock)
+    except Exception:
+        pass
+
+    return mock
+
+
+@pytest.fixture
+def mock_evolution(monkeypatch):
+    """Mock EvolutionClient — simulates WhatsApp message sending.
+
+    Monkeypatches src.api.webhook.evolution_client.
+    """
+    from unittest.mock import AsyncMock
+
+    mock = AsyncMock()
+    mock.send_message_with_typing = AsyncMock(return_value=None)
+    mock.send_messages = AsyncMock(return_value=None)
+
+    try:
+        import src.api.webhook as webhook_module
+        monkeypatch.setattr(webhook_module, "evolution_client", mock)
+    except Exception:
+        pass
+
+    return mock
