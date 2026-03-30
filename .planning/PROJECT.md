@@ -2,7 +2,7 @@
 
 ## What This Is
 
-Plataforma SaaS multi-tenant de gestao de clinicas medicas com atendente de IA no WhatsApp. O sistema combina um agente conversacional inteligente (agendamento, follow-up, FAQ, lembretes) com um painel web completo para administradores, recepcionistas e medicos. Inclui landing page de captura que redireciona leads direto para o WhatsApp.
+Plataforma SaaS multi-tenant de gestao de clinicas medicas com atendente de IA no WhatsApp. Combina agente conversacional inteligente (agendamento, follow-up, FAQ, lembretes) com painel web completo para administradores, recepcionistas e medicos. Inclui landing page de captura, dashboard operacional com KPIs, gestao de agenda/pacientes/medicos/usuarios, inbox WhatsApp em tempo real com takeover humano, templates de mensagem e campanhas em massa.
 
 ## Core Value
 
@@ -21,40 +21,52 @@ O paciente consegue agendar, remarcar e tirar duvidas pelo WhatsApp 24h por dia 
 - ✓ Persistencia de sessao em Redis — existing
 - ✓ Banco PostgreSQL com pacientes, consultas, medicos — existing
 - ✓ Observabilidade via Langfuse — existing
+- ✓ Landing page de captura com redirect para WhatsApp — v1.0
+- ✓ Autenticacao e controle de acesso (Admin, Recepcionista, Medico) — v1.0
+- ✓ Multi-tenancy: isolamento de dados por clinica — v1.0
+- ✓ Dashboard principal com metricas (ocupacao, confirmacoes, conversas) — v1.0
+- ✓ Painel WhatsApp: conversas em tempo real — v1.0
+- ✓ Painel WhatsApp: historico completo com busca — v1.0
+- ✓ Painel WhatsApp: takeover manual (humano assume da IA) — v1.0
+- ✓ Painel WhatsApp: templates e campanhas de mensagens em massa — v1.0
+- ✓ Gestao de agenda (visualizacao, bloqueio de horarios, remarcacao) — v1.0
+- ✓ Gestao de pacientes (cadastro, historico, contatos) — v1.0
+- ✓ Gestao de medicos/profissionais (perfil, especialidades, horarios) — v1.0
+- ✓ Gestao de usuarios do sistema (CRUD, permissoes por role) — v1.0
+- ✓ API REST para o frontend consumir dados do backend existente — v1.0
 
 ### Active
 
-- ✓ Landing page de captura com redirect para WhatsApp — Validated in Phase 01: Foundation
-- ✓ Autenticacao e controle de acesso (Admin, Recepcionista, Medico) — Validated in Phase 02: Auth + Multi-Tenancy
-- ✓ Multi-tenancy: isolamento de dados por clinica — Validated in Phase 02: Auth + Multi-Tenancy
-- ✓ Dashboard principal com metricas (ocupacao, confirmacoes, conversas) — Validated in Phase 05: Dashboard + Campaigns
-- ✓ Painel WhatsApp: conversas em tempo real — Validated in Phase 04: WhatsApp Panel
-- ✓ Painel WhatsApp: historico completo com busca — Validated in Phase 04: WhatsApp Panel
-- ✓ Painel WhatsApp: takeover manual (humano assume da IA) — Validated in Phase 04: WhatsApp Panel
-- ✓ Painel WhatsApp: templates e campanhas de mensagens em massa — Validated in Phase 05: Dashboard + Campaigns
-- ✓ Gestao de agenda (visualizacao, bloqueio de horarios, remarcacao) — Validated in Phase 03: Core CRUD
-- ✓ Gestao de pacientes (cadastro, historico, contatos) — Validated in Phase 03: Core CRUD
-- ✓ Gestao de medicos/profissionais (perfil, especialidades, horarios) — Validated in Phase 03: Core CRUD
-- ✓ Gestao de usuarios do sistema (CRUD, permissoes por role) — Validated in Phase 03: Core CRUD
-- ✓ API REST para o frontend consumir dados do backend existente — Validated in Phase 03: Core CRUD
+(Fresh for next milestone — define via `/gsd:new-milestone`)
 
 ### Out of Scope
 
-- Portal do paciente (app/web para paciente acessar) — complexidade alta, foco v1 na equipe da clinica
-- Integracao com prontuario eletronico (PEP) — depende de cada sistema, v2+
-- Pagamentos/billing online — v2, foco v1 no atendimento
-- App mobile nativo — web-first, responsivo resolve v1
-- Video consulta / telemedicina — fora do escopo do produto
+- Prontuario Eletronico (PEP) — complexidade CFM/TISS, meses de trabalho, sem diferencial WhatsApp
+- Portal do paciente (login paciente) — dobra complexidade auth, compete com canal WhatsApp
+- Pagamento online / billing — PCI compliance, gateway, seguro — v2+
+- App mobile nativo — web responsivo resolve v1, PWA como ponte
+- Video consulta / telemedicina — categoria de produto diferente (WebRTC)
+- Multi-idioma — pt-BR unico mercado v1, i18n sem valor agora
+- Integracao TISS/ANS — cada plano tem regras diferentes, escopo proprio
+- SEO avancado na landing — SEO basico sim, blog/conteudo nao
+- Offline mode — real-time e core value
 
 ## Context
 
-**Backend existente:** Python/FastAPI com pipeline dual-agent (Sofia + Carla) usando LangGraph. Integracao WhatsApp via Evolution API, banco PostgreSQL, sessoes em Redis, observabilidade Langfuse. O backend funciona standalone via webhook — precisa de API REST para o frontend.
+**Shipped v1.0 MVP** with ~18,363 LOC (9,667 frontend TypeScript/CSS + 8,696 backend Python) in 7 days.
 
-**Frontend:** Apenas `site.html` estatico (landing page de referencia visual). O sistema web completo sera construido do zero com Next.js + Tailwind CSS.
+**Tech stack:**
+- Frontend: Next.js 16 + Tailwind CSS 4 + shadcn/ui + Recharts + Socket.IO client
+- Backend: Python/FastAPI + LangGraph (Sofia/Carla agents) + Socket.IO server
+- Database: PostgreSQL with RLS policies + Redis sessions
+- Auth: NextAuth v5 + FastAPI JWT/Argon2
+- WhatsApp: Evolution API
+- LLM: OpenRouter
+- Observability: Langfuse
 
-**Modelo de negocio:** SaaS multi-tenant. Cada clinica tera seus dados isolados (tenant_id). Landing page captura leads e redireciona para WhatsApp com agente de vendas.
-
-**Referencia visual:** `frontend/site.html` define a identidade visual (cores verdes, DM Serif Display + DM Sans, bordas arredondadas, estilo clean/medico).
+**Known issues:**
+- 2/3 tenant isolation tests fail because RLS migration not applied to live DB (infrastructure deployment gap)
+- Phase 2 RLS migration needs `alembic upgrade head` on production database
 
 ## Constraints
 
@@ -70,11 +82,19 @@ O paciente consegue agendar, remarcar e tirar duvidas pelo WhatsApp 24h por dia 
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Next.js + Tailwind para frontend | Stack moderna, SSR para landing page SEO, produtividade alta | ✓ Validated in Phase 01 |
-| SaaS multi-tenant desde v1 | Evita rewrite futuro, arquitetura escalavel | ✓ Validated in Phase 02 |
-| Landing page redireciona para WhatsApp | Funil direto, sem sequencia de emails, conversao imediata | ✓ Validated in Phase 01 |
-| Sem portal do paciente em v1 | Foco na equipe da clinica, reduz escopo | — Pending |
-| Tres roles: Admin, Recepcionista, Medico | Cobre os fluxos essenciais sem complexidade excessiva | ✓ Validated in Phase 02 |
+| Next.js + Tailwind para frontend | Stack moderna, SSR para landing page SEO, produtividade alta | ✓ Good |
+| SaaS multi-tenant desde v1 | Evita rewrite futuro, arquitetura escalavel | ✓ Good |
+| Landing page redireciona para WhatsApp | Funil direto, sem sequencia de emails, conversao imediata | ✓ Good |
+| Sem portal do paciente em v1 | Foco na equipe da clinica, reduz escopo | ✓ Good |
+| Tres roles: Admin, Recepcionista, Medico | Cobre os fluxos essenciais sem complexidade excessiva | ✓ Good |
+| Tailwind 4 CSS-first (sem tailwind.config.ts) | Design tokens via @theme em globals.css | ✓ Good |
+| Raw SQL migrations via op.execute() | Sem ORM models no agent-service (psycopg2 only) | ✓ Good |
+| BYPASSRLS para bot pipeline | WhatsApp bot pipeline funciona sem tenant context | ✓ Good |
+| NextAuth v5 + proxy.ts route protection | Next.js 16.2.1 pattern per research | ✓ Good |
+| Custom calendar com date-fns | Controle total da paleta verde, sem FullCalendar | ✓ Good |
+| python-socketio ASGI mount | Socket.IO server co-hosted com FastAPI | ✓ Good |
+| FOR UPDATE SKIP LOCKED para campaigns | Previne double-dispatch em APScheduler concorrente | ✓ Good |
+| unstable_retry em error boundaries | Next.js 16.2.x breaking change (nao reset) | ✓ Good |
 
 ## Evolution
 
@@ -94,4 +114,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-30 after Phase 06 completion — mobile responsive nav, error boundaries with unstable_retry, loading skeletons, tenant isolation tests activated*
+*Last updated: 2026-03-30 after v1.0 milestone*
