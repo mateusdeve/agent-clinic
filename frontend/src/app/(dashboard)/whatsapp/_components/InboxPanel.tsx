@@ -14,6 +14,7 @@ import { ConversationList } from "./ConversationList";
 import { ConversationThread } from "./ConversationThread";
 import { PatientSidebar } from "./PatientSidebar";
 import { TakeoverBar } from "./TakeoverBar";
+import { QuickSendModal } from "@/components/dashboard/QuickSendModal";
 
 type FilterOption = "todas" | ConversationStatus;
 
@@ -38,6 +39,7 @@ export function InboxPanel() {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [activeFilter, setActiveFilter] = React.useState<FilterOption>("todas");
   const [isLoadingList, setIsLoadingList] = React.useState(false);
+  const [quickSendOpen, setQuickSendOpen] = React.useState(false);
 
   const debouncedSearch = useDebounce(searchQuery, 300);
 
@@ -148,11 +150,26 @@ export function InboxPanel() {
 
       {/* Center column: Takeover bar + Message thread */}
       <div className="flex-1 flex flex-col min-w-0">
-        <TakeoverBar
-          phone={selectedPhone}
-          status={selectedStatus}
-          humanName={selectedHumanName}
-        />
+        {/* TakeoverBar inclui borda propria; botao Template fica sobreposto ao lado */}
+        <div className="relative">
+          <TakeoverBar
+            phone={selectedPhone}
+            status={selectedStatus}
+            humanName={selectedHumanName}
+          />
+          {selectedPhone && (
+            <div className="absolute right-4 top-1/2 -translate-y-1/2">
+              <button
+                type="button"
+                onClick={() => setQuickSendOpen(true)}
+                title="Enviar template"
+                className="text-xs font-medium text-green-700 border border-green-300 rounded-md px-2 py-1 hover:bg-green-50 transition-colors bg-white"
+              >
+                Template
+              </button>
+            </div>
+          )}
+        </div>
         <ConversationThread
           phone={selectedPhone}
           socket={socket}
@@ -169,6 +186,16 @@ export function InboxPanel() {
             phone={selectedPhone}
           />
         </div>
+      )}
+
+      {/* QuickSendModal */}
+      {selectedPhone && (
+        <QuickSendModal
+          open={quickSendOpen}
+          onClose={() => setQuickSendOpen(false)}
+          phone={selectedPhone}
+          patientNome={selectedConv?.patient_nome ?? selectedPhone}
+        />
       )}
     </div>
   );
