@@ -65,8 +65,8 @@ class ConversationMessage(BaseModel):
 def list_patients(
     search: Optional[str] = Query(None),
     page: int = Query(1, ge=1),
-    per_page: int = Query(20, ge=1, le=100),
-    _user: dict = Depends(require_role("admin", "recepcionista")),
+    per_page: int = Query(20, ge=1, le=500),
+    _user: dict = Depends(require_role("admin", "recepcionista", "medico")),
     conn=Depends(get_db_for_tenant),
 ):
     """Lista pacientes com busca por nome ou telefone. Retorna resposta paginada.
@@ -83,7 +83,7 @@ def list_patients(
                 p.data_nascimento,
                 p.notas,
                 (SELECT COUNT(*) FROM appointments WHERE appointments.patient_id = p.id) AS total_consultas,
-                p.created_at
+                p.criado_em
             FROM patients p
         """
         count_sql = "SELECT COUNT(*) FROM patients p"
@@ -143,7 +143,7 @@ def create_patient(
                 """
                 INSERT INTO patients (phone, nome, data_nascimento, notas, tenant_id)
                 VALUES (%s, %s, %s, %s, current_setting('app.tenant_id')::uuid)
-                RETURNING id, phone, nome, data_nascimento, notas, created_at
+                RETURNING id, phone, nome, data_nascimento, notas, criado_em
                 """,
                 (body.phone, body.nome, body.data_nascimento, body.notas),
             )
@@ -171,7 +171,7 @@ def create_patient(
 @router.get("/{patient_id}", response_model=PatientOut)
 def get_patient(
     patient_id: str,
-    _user: dict = Depends(require_role("admin", "recepcionista")),
+    _user: dict = Depends(require_role("admin", "recepcionista", "medico")),
     conn=Depends(get_db_for_tenant),
 ):
     """Retorna um paciente pelo ID ou 404 se nao encontrado."""
@@ -186,7 +186,7 @@ def get_patient(
                     p.data_nascimento,
                     p.notas,
                     (SELECT COUNT(*) FROM appointments WHERE appointments.patient_id = p.id) AS total_consultas,
-                    p.created_at
+                    p.criado_em
                 FROM patients p
                 WHERE p.id = %s
                 """,
@@ -252,7 +252,7 @@ def update_patient(
                 UPDATE patients
                 SET {set_clause}
                 WHERE id = %s
-                RETURNING id, phone, nome, data_nascimento, notas, created_at
+                RETURNING id, phone, nome, data_nascimento, notas, criado_em
                 """,
                 values,
             )
@@ -292,7 +292,7 @@ def update_patient(
 @router.get("/{patient_id}/appointments")
 def get_patient_appointments(
     patient_id: str,
-    _user: dict = Depends(require_role("admin", "recepcionista")),
+    _user: dict = Depends(require_role("admin", "recepcionista", "medico")),
     conn=Depends(get_db_for_tenant),
 ):
     """Retorna historico de consultas de um paciente.
@@ -320,8 +320,8 @@ def get_patient_appointments(
                 LEFT JOIN doctors d ON a.doctor_id = d.id
                 WHERE a.patient_id = %s
                 ORDER BY
-                    COALESCE(a.appointment_date, a.data_agendamento) DESC,
-                    COALESCE(a.appointment_time, a.horario_agendamento) DESC
+                    COALESCE(a.appointment_date::date, a.data_agendamento) DESC,
+                    COALESCE(a.appointment_time, a.horario_agendamento::text) DESC
                 """,
                 (patient_id,),
             )
@@ -352,7 +352,7 @@ def get_patient_appointments(
 @router.get("/{patient_id}/conversations")
 def get_patient_conversations(
     patient_id: str,
-    _user: dict = Depends(require_role("admin", "recepcionista")),
+    _user: dict = Depends(require_role("admin", "recepcionista", "medico")),
     conn=Depends(get_db_for_tenant),
 ):
     """Retorna historico de conversas WhatsApp de um paciente.

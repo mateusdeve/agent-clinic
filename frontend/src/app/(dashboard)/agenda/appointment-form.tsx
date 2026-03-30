@@ -63,7 +63,7 @@ export function AppointmentForm({
       patient_id: appointment?.patient_id ?? "",
       doctor_id: appointment?.doctor_id ?? "",
       data_agendamento: appointment?.data_agendamento ?? prefillDate ?? "",
-      horario: appointment?.horario ?? prefillTime ?? "",
+      horario: (appointment?.horario ?? prefillTime ?? "").slice(0, 5),
       especialidade: appointment?.especialidade ?? "",
     },
   });

@@ -256,6 +256,7 @@ export default function AgendaPage() {
         title={slideOverTitle}
       >
         <AppointmentForm
+          key={selectedAppointment?.id ?? "new"}
           appointment={selectedAppointment}
           patients={patients}
           doctors={doctors}

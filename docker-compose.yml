@@ -1,0 +1,32 @@
+services:
+  api:
+    build:
+      context: ./agent-service
+      dockerfile: Dockerfile
+    container_name: agent-clinic-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./agent-service/.env
+    environment:
+      - FRONTEND_URL=${FRONTEND_URL:-http://localhost:3000}
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        # NEXT_PUBLIC_ vars are baked at build time — must be the PUBLIC url the browser reaches
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+        NEXT_PUBLIC_WHATSAPP_NUMBER: ${NEXT_PUBLIC_WHATSAPP_NUMBER:-5511999999999}
+    container_name: agent-clinic-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      # Server-side vars (SSR / API routes) — internal Docker network
+      - FASTAPI_URL=http://api:8000
+      - AUTH_SECRET=${AUTH_SECRET}
+    depends_on:
+      - api

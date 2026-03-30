@@ -73,7 +73,7 @@ def _build_segment_query(filtros: dict) -> tuple:
             EXISTS (
                 SELECT 1 FROM appointments a3
                 WHERE a3.patient_id = p.id
-                  AND COALESCE(a3.data_agendamento, a3.appointment_date) >= NOW() - INTERVAL '30 days'
+                  AND COALESCE(a3.data_agendamento, a3.appointment_date::date) >= NOW() - INTERVAL '30 days'
             )
         """)
     elif range_filter == "30-90d":
@@ -81,7 +81,7 @@ def _build_segment_query(filtros: dict) -> tuple:
             EXISTS (
                 SELECT 1 FROM appointments a3
                 WHERE a3.patient_id = p.id
-                  AND COALESCE(a3.data_agendamento, a3.appointment_date) BETWEEN NOW() - INTERVAL '90 days' AND NOW() - INTERVAL '30 days'
+                  AND COALESCE(a3.data_agendamento, a3.appointment_date::date) BETWEEN NOW() - INTERVAL '90 days' AND NOW() - INTERVAL '30 days'
             )
         """)
     elif range_filter == "gt90d":
@@ -90,7 +90,7 @@ def _build_segment_query(filtros: dict) -> tuple:
                 NOT EXISTS (
                     SELECT 1 FROM appointments a3
                     WHERE a3.patient_id = p.id
-                      AND COALESCE(a3.data_agendamento, a3.appointment_date) >= NOW() - INTERVAL '90 days'
+                      AND COALESCE(a3.data_agendamento, a3.appointment_date::date) >= NOW() - INTERVAL '90 days'
                 )
             )
         """)
@@ -101,7 +101,7 @@ def _build_segment_query(filtros: dict) -> tuple:
             EXISTS (
                 SELECT 1 FROM appointments a4
                 WHERE a4.patient_id = p.id
-                  AND COALESCE(a4.data_agendamento, a4.appointment_date) >= NOW() - INTERVAL '90 days'
+                  AND COALESCE(a4.data_agendamento, a4.appointment_date::date) >= NOW() - INTERVAL '90 days'
             )
         """)
     elif status_paciente == "inativo":
@@ -109,7 +109,7 @@ def _build_segment_query(filtros: dict) -> tuple:
             NOT EXISTS (
                 SELECT 1 FROM appointments a4
                 WHERE a4.patient_id = p.id
-                  AND COALESCE(a4.data_agendamento, a4.appointment_date) >= NOW() - INTERVAL '90 days'
+                  AND COALESCE(a4.data_agendamento, a4.appointment_date::date) >= NOW() - INTERVAL '90 days'
             )
         """)
 
@@ -273,7 +273,7 @@ def create_campaign(
                     FROM appointments a
                     LEFT JOIN doctors d ON a.doctor_id = d.id
                     WHERE a.patient_id = %s
-                    ORDER BY COALESCE(a.data_agendamento, a.appointment_date) DESC
+                    ORDER BY COALESCE(a.data_agendamento, a.appointment_date::date) DESC
                     LIMIT 1
                     """,
                     (patient_id,),
@@ -496,7 +496,7 @@ def get_campaign_recipients(
                     cr.erro,
                     cr.sent_at
                 FROM campaign_recipients cr
-                LEFT JOIN patients p ON cr.patient_id = p.id::text
+                LEFT JOIN patients p ON cr.patient_id = p.id
                 WHERE cr.campaign_id = %s
                 ORDER BY cr.updated_at DESC
                 LIMIT %s OFFSET %s

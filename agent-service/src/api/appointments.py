@@ -98,9 +98,9 @@ def list_appointments(
     doctor_id: Optional[str] = Query(None),
     date_from: Optional[str] = Query(None),
     date_to: Optional[str] = Query(None),
-    status: Optional[str] = Query(None),
+    filter_status: Optional[str] = Query(None, alias="status"),
     page: int = Query(1, ge=1),
-    per_page: int = Query(20, ge=1, le=100),
+    per_page: int = Query(20, ge=1, le=500),
     current_user: dict = Depends(get_current_user),
     conn=Depends(get_db_for_tenant),
 ):
@@ -137,17 +137,17 @@ def list_appointments(
             params.append(doctor_id)
         if date_from:
             filters.append(
-                "(COALESCE(a.appointment_date, a.data_agendamento) >= %s)"
+                "(COALESCE(a.appointment_date::date, a.data_agendamento) >= %s::date)"
             )
             params.append(date_from)
         if date_to:
             filters.append(
-                "(COALESCE(a.appointment_date, a.data_agendamento) <= %s)"
+                "(COALESCE(a.appointment_date::date, a.data_agendamento) <= %s::date)"
             )
             params.append(date_to)
-        if status:
+        if filter_status:
             filters.append("a.status = %s")
-            params.append(status)
+            params.append(filter_status)
 
         where = ("WHERE " + " AND ".join(filters)) if filters else ""
 
@@ -158,9 +158,9 @@ def list_appointments(
                 p.nome AS patient_nome,
                 a.doctor_id,
                 d.nome AS doctor_nome,
-                COALESCE(a.especialidade, d.especialidade) AS especialidade,
-                COALESCE(a.appointment_date, a.data_agendamento) AS data_agendamento,
-                COALESCE(a.appointment_time, a.horario_agendamento) AS horario,
+                d.especialidade,
+                COALESCE(a.appointment_date::date, a.data_agendamento) AS data_agendamento,
+                COALESCE(a.appointment_time, a.horario_agendamento::text) AS horario,
                 a.status,
                 a.motivo_cancelamento,
                 a.created_at
@@ -169,8 +169,8 @@ def list_appointments(
             LEFT JOIN doctors d ON a.doctor_id = d.id
             {where}
             ORDER BY
-                COALESCE(a.appointment_date, a.data_agendamento) ASC,
-                COALESCE(a.appointment_time, a.horario_agendamento) ASC
+                COALESCE(a.appointment_date::date, a.data_agendamento) ASC,
+                COALESCE(a.appointment_time, a.horario_agendamento::text) ASC
             LIMIT %s OFFSET %s
         """
 
@@ -216,12 +216,12 @@ def create_appointment(
                 """
                 INSERT INTO appointments
                     (patient_id, doctor_id, data_agendamento, horario_agendamento,
-                     especialidade, status, tenant_id)
+                     specialty, status, tenant_id)
                 VALUES (%s, %s, %s, %s, %s, 'agendado', current_setting('app.tenant_id')::uuid)
                 RETURNING
                     id, patient_id, NULL AS patient_nome,
                     doctor_id, NULL AS doctor_nome,
-                    especialidade, data_agendamento, horario_agendamento,
+                    specialty, data_agendamento, horario_agendamento,
                     status, motivo_cancelamento, created_at
                 """,
                 (
@@ -265,7 +265,7 @@ def update_appointment(
         if body.horario is not None:
             updates["horario_agendamento"] = body.horario
         if body.especialidade is not None:
-            updates["especialidade"] = body.especialidade
+            updates["specialty"] = body.especialidade
 
         if not updates:
             raise HTTPException(
@@ -285,7 +285,7 @@ def update_appointment(
                 RETURNING
                     id, patient_id, NULL AS patient_nome,
                     doctor_id, NULL AS doctor_nome,
-                    especialidade, data_agendamento, horario_agendamento,
+                    specialty, data_agendamento, horario_agendamento,
                     status, motivo_cancelamento, created_at
                 """,
                 values,
@@ -329,7 +329,7 @@ def cancel_appointment(
                 RETURNING
                     id, patient_id, NULL AS patient_nome,
                     doctor_id, NULL AS doctor_nome,
-                    especialidade, data_agendamento, horario_agendamento,
+                    specialty, data_agendamento, horario_agendamento,
                     status, motivo_cancelamento, created_at
                 """,
                 (motivo, appointment_id),
@@ -380,7 +380,7 @@ def update_appointment_status(
                 RETURNING
                     id, patient_id, NULL AS patient_nome,
                     doctor_id, NULL AS doctor_nome,
-                    especialidade, data_agendamento, horario_agendamento,
+                    specialty, data_agendamento, horario_agendamento,
                     status, motivo_cancelamento, created_at
                 """,
                 (body.status, appointment_id),

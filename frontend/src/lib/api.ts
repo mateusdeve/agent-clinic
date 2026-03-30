@@ -16,7 +16,11 @@ export async function apiFetch<T = unknown>(
   // Ref: auth.ts session callback — s.access_token = token.access_token
   const token = (session as any)?.access_token;
 
-  const res = await fetch(`${API_URL}${path}`, {
+  // Ensure path has trailing slash before query params to avoid 307 redirects
+  // (FastAPI redirect_slashes drops Authorization header on redirect)
+  const normalizedPath = path.replace(/^([^?#]*?)\/?(\?|#|$)/, "$1/$2");
+
+  const res = await fetch(`${API_URL}${normalizedPath}`, {
     ...init,
     headers: {
       "Content-Type": "application/json",
@@ -27,7 +31,11 @@ export async function apiFetch<T = unknown>(
 
   if (!res.ok) {
     const error = await res.json().catch(() => ({ detail: "Erro de rede" }));
-    throw new Error(error.detail || `HTTP ${res.status}`);
+    const message =
+      typeof error.detail === "string"
+        ? error.detail
+        : `HTTP ${res.status}`;
+    throw new Error(message);
   }
 
   return res.json();
