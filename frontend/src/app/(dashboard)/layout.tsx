@@ -2,6 +2,7 @@ import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { LogoutButton } from "./logout-button";
 import { MobileNav } from "@/components/dashboard/MobileNav";
+import { AuthSessionProvider } from "@/components/providers/session-provider";
 
 export default async function DashboardLayout({
   children,
@@ -101,7 +102,7 @@ export default async function DashboardLayout({
 
         {/* Main content area */}
         <main className="flex-1 p-6 bg-off-white overflow-y-auto">
-          {children}
+          <AuthSessionProvider>{children}</AuthSessionProvider>
         </main>
       </div>
     </div>

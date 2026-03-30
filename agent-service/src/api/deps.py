@@ -97,9 +97,14 @@ def get_db_for_tenant(tenant_id: str = Depends(get_current_tenant)):
         )
     conn = psycopg2.connect(url)
     try:
+        conn.autocommit = False
         with conn.cursor() as cur:
+            cur.execute("BEGIN")
             cur.execute("SET LOCAL app.tenant_id = %s", (tenant_id,))
-        conn.commit()
         yield conn
+        conn.commit()
+    except Exception:
+        conn.rollback()
+        raise
     finally:
         conn.close()

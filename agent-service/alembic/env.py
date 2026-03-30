@@ -44,7 +44,7 @@ def run_migrations_online() -> None:
     Le DATABASE_URL do ambiente e cria Engine com NullPool
     (sem pooling — adequado para execucao de migrations).
     """
-    url = os.getenv("DATABASE_URL")
+    url = os.getenv("DATABASE_URL", "").replace("postgres://", "postgresql://", 1)
     connectable = create_engine(url, poolclass=pool.NullPool)
 
     with connectable.connect() as connection:

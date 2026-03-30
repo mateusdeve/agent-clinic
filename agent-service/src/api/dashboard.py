@@ -51,7 +51,7 @@ async def get_dashboard_stats(
                     COUNT(*) FILTER (WHERE status = 'agendado')                       AS confirmacoes_pendentes,
                     COUNT(*)                                                            AS total_slots
                 FROM appointments
-                WHERE COALESCE(data_agendamento, appointment_date) = %s
+                WHERE COALESCE(data_agendamento, appointment_date::date) = %s
                 """,
                 (hoje,),
             )
@@ -96,7 +96,7 @@ async def get_dashboard_stats(
                     FROM appointments a
                     LEFT JOIN patients p ON a.patient_id = p.id
                     LEFT JOIN doctors d ON a.doctor_id = d.id
-                    WHERE COALESCE(a.data_agendamento, a.appointment_date) = %s
+                    WHERE COALESCE(a.data_agendamento, a.appointment_date::date) = %s
                       AND a.status NOT IN ('cancelado', 'cancelled')
                     ORDER BY COALESCE(a.appointment_time, a.horario_agendamento) ASC
                     LIMIT 20
@@ -167,7 +167,7 @@ def get_dashboard_charts(
                         COUNT(*) FILTER (WHERE status NOT IN ('cancelado','cancelled')) AS consultas,
                         COUNT(*) FILTER (WHERE status IN ('cancelado','cancelled'))      AS no_shows
                     FROM appointments
-                    WHERE COALESCE(data_agendamento, appointment_date) = %s
+                    WHERE COALESCE(data_agendamento, appointment_date::date) = %s
                     """,
                     (dia,),
                 )
@@ -188,7 +188,7 @@ def get_dashboard_charts(
                     COUNT(*) AS count
                 FROM appointments a
                 LEFT JOIN doctors d ON a.doctor_id = d.id
-                WHERE COALESCE(a.data_agendamento, a.appointment_date) >= %s
+                WHERE COALESCE(a.data_agendamento, a.appointment_date::date) >= %s
                   AND a.status NOT IN ('cancelado', 'cancelled')
                 GROUP BY d.especialidade
                 ORDER BY count DESC
