@@ -5,6 +5,7 @@ import { CalendarCheck, TrendingUp, UserX, Clock, MessageCircle } from "lucide-r
 import { apiFetch } from "@/lib/api";
 import type { DashboardStats, DashboardCharts } from "@/lib/types";
 import { KpiCard } from "@/components/dashboard/KpiCard";
+import { ErrorAlert } from "@/components/dashboard/ErrorAlert";
 import { ProximasConsultas } from "@/components/dashboard/ProximasConsultas";
 import { TrendChart } from "@/components/dashboard/TrendChart";
 import { EspecialidadeChart } from "@/components/dashboard/EspecialidadeChart";
@@ -53,9 +54,7 @@ export function DashboardClient({ role }: DashboardClientProps) {
 
   if (!stats) {
     return (
-      <p className="text-sm text-gray-500">
-        Nao foi possivel carregar os dados do dashboard.
-      </p>
+      <ErrorAlert message="Nao foi possivel carregar os dados do dashboard." />
     );
   }
 
