@@ -114,3 +114,85 @@ export interface TypingIndicatorEvent {
   phone: string;
   is_typing: boolean;
 }
+
+// ─── Dashboard (Phase 5) ──────────────────────────────────────────────────────
+
+export interface DashboardStats {
+  consultas_hoje: number;
+  taxa_ocupacao: number;
+  no_shows: number;
+  confirmacoes_pendentes: number;
+  conversas_ativas: number;
+  proximas_consultas: ProximaConsulta[];
+}
+
+export interface ProximaConsulta {
+  id: string;
+  horario: string;
+  status: AppointmentStatus;
+  especialidade: string;
+  patient_nome: string;
+  doctor_nome: string;
+}
+
+export interface DashboardCharts {
+  trend: TrendDataPoint[];
+  especialidades: EspecialidadeDataPoint[];
+}
+
+export interface TrendDataPoint {
+  date: string;
+  consultas: number;
+  no_shows: number;
+}
+
+export interface EspecialidadeDataPoint {
+  especialidade: string;
+  count: number;
+}
+
+// ─── Templates (Phase 5) ──────────────────────────────────────────────────────
+
+export interface MessageTemplate {
+  id: string;
+  nome: string;
+  corpo: string;
+  variaveis_usadas: string[];
+  created_at: string;
+  updated_at: string;
+}
+
+// ─── Campaigns (Phase 5) ──────────────────────────────────────────────────────
+
+export type CampaignStatus = "rascunho" | "enviando" | "concluida" | "falha";
+export type RecipientStatus = "pendente" | "processando" | "enviado" | "entregue" | "lido" | "falha";
+
+export interface Campaign {
+  id: string;
+  nome: string;
+  template_nome: string;
+  status: CampaignStatus;
+  total_recipients: number;
+  stats: { enviado: number; entregue: number; lido: number; falha: number };
+  created_at: string;
+}
+
+export interface CampaignDetail extends Campaign {
+  template_id: string;
+  filtros: Record<string, string>;
+  enviado_at: string | null;
+}
+
+export interface CampaignRecipient {
+  id: string;
+  phone: string;
+  patient_nome: string;
+  status: RecipientStatus;
+  erro: string | null;
+  sent_at: string | null;
+}
+
+export interface SegmentPreview {
+  count: number;
+  sample: { id: string; nome: string; phone: string }[];
+}
