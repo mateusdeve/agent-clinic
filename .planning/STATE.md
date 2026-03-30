@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-auth-multi-tenancy-00-PLAN.md
-last_updated: "2026-03-30T00:06:51.542Z"
+stopped_at: Completed 02-auth-multi-tenancy 02-01-PLAN.md
+last_updated: "2026-03-30T00:08:40.343Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 7
-  completed_plans: 4
+  completed_plans: 5
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-03-29)
 ## Current Position
 
 Phase: 02 (auth-multi-tenancy) — EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 Status: Ready to execute
 Last activity: 2026-03-30
 
@@ -56,6 +56,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01-foundation P02 | 10min | 2 tasks | 10 files |
 | Phase 01-foundation P03 | 5min | 2 tasks | 0 files |
 | Phase 02-auth-multi-tenancy P00 | 3min | 2 tasks | 6 files |
+| Phase 02-auth-multi-tenancy P01 | 15min | 3 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -76,6 +77,9 @@ Recent decisions affecting current work:
 - [Phase 01-foundation]: All 8 landing components already had correct max-[900px]: breakpoints — no code changes needed in responsive audit
 - [Phase 02-auth-multi-tenancy]: Use xfail over skip for test stubs — xpassed signals implementation complete
 - [Phase 02-auth-multi-tenancy]: Transaction rollback test isolation over separate test DB — simpler, matches codebase pattern
+- [Phase 02-auth-multi-tenancy]: Raw SQL migrations via op.execute() — no ORM models in agent-service (psycopg2 only)
+- [Phase 02-auth-multi-tenancy]: BYPASSRLS granted to DB user so WhatsApp bot pipeline works without tenant context after RLS migration
+- [Phase 02-auth-multi-tenancy]: current_tenant_id() uses NULLIF for fail-closed security — unset context returns no rows rather than all rows
 
 ### Pending Todos
 
@@ -89,6 +93,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T00:06:51.540Z
-Stopped at: Completed 02-auth-multi-tenancy-00-PLAN.md
+Last session: 2026-03-30T00:08:40.341Z
+Stopped at: Completed 02-auth-multi-tenancy 02-01-PLAN.md
 Resume file: None

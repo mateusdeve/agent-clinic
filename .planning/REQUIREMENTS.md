@@ -95,7 +95,7 @@
 
 - [ ] **API-01**: FastAPI expoe endpoints REST para todas as entidades (patients, appointments, doctors, users, conversations)
 - [ ] **API-02**: FastAPI implementa autenticacao JWT com refresh token
-- [ ] **API-03**: FastAPI implementa middleware de multi-tenancy com filtro automatico por tenant_id
+- [x] **API-03**: FastAPI implementa middleware de multi-tenancy com filtro automatico por tenant_id
 - [ ] **API-04**: FastAPI integra Socket.IO para streaming de mensagens WhatsApp em tempo real
 
 ## v2 Requirements
@@ -154,7 +154,7 @@
 | TENANT-02 | Phase 2 | Complete |
 | TENANT-03 | Phase 2 | Complete |
 | API-02 | Phase 2 | Pending |
-| API-03 | Phase 2 | Pending |
+| API-03 | Phase 2 | Complete |
 | AGENDA-01 | Phase 3 | Pending |
 | AGENDA-02 | Phase 3 | Pending |
 | AGENDA-03 | Phase 3 | Pending |
