@@ -28,9 +28,9 @@ O paciente consegue agendar, remarcar e tirar duvidas pelo WhatsApp 24h por dia 
 - ✓ Autenticacao e controle de acesso (Admin, Recepcionista, Medico) — Validated in Phase 02: Auth + Multi-Tenancy
 - ✓ Multi-tenancy: isolamento de dados por clinica — Validated in Phase 02: Auth + Multi-Tenancy
 - [ ] Dashboard principal com metricas (ocupacao, confirmacoes, conversas)
-- [ ] Painel WhatsApp: conversas em tempo real
-- [ ] Painel WhatsApp: historico completo com busca
-- [ ] Painel WhatsApp: takeover manual (humano assume da IA)
+- ✓ Painel WhatsApp: conversas em tempo real — Validated in Phase 04: WhatsApp Panel
+- ✓ Painel WhatsApp: historico completo com busca — Validated in Phase 04: WhatsApp Panel
+- ✓ Painel WhatsApp: takeover manual (humano assume da IA) — Validated in Phase 04: WhatsApp Panel
 - [ ] Painel WhatsApp: templates e campanhas de mensagens em massa
 - ✓ Gestao de agenda (visualizacao, bloqueio de horarios, remarcacao) — Validated in Phase 03: Core CRUD
 - ✓ Gestao de pacientes (cadastro, historico, contatos) — Validated in Phase 03: Core CRUD
