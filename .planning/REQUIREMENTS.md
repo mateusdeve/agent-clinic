@@ -36,7 +36,7 @@
 
 ### Appointment Management (Agenda)
 
-- [ ] **AGENDA-01**: Recepcionista ve calendario visual (dia/semana/mes) com filtro por medico
+- [x] **AGENDA-01**: Recepcionista ve calendario visual (dia/semana/mes) com filtro por medico
 - [x] **AGENDA-02**: Recepcionista pode criar agendamento manualmente (paciente, medico, data, hora, especialidade)
 - [x] **AGENDA-03**: Recepcionista pode editar/remarcar agendamento existente
 - [x] **AGENDA-04**: Recepcionista pode cancelar agendamento com motivo opcional
@@ -155,7 +155,7 @@
 | TENANT-03 | Phase 2 | Complete |
 | API-02 | Phase 2 | Complete |
 | API-03 | Phase 2 | Complete |
-| AGENDA-01 | Phase 3 | Pending |
+| AGENDA-01 | Phase 3 | Complete |
 | AGENDA-02 | Phase 3 | Complete |
 | AGENDA-03 | Phase 3 | Complete |
 | AGENDA-04 | Phase 3 | Complete |

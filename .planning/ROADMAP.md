@@ -71,7 +71,7 @@ Plans:
 - [x] 03-01-PLAN.md — Migration 004, frontend deps, shared types, API wrapper, reusable components (DataTable, SlideOver, StatusBadge)
 - [x] 03-02-PLAN.md — FastAPI patients + appointments routers with pagination, search, and medico isolation
 - [x] 03-03-PLAN.md — FastAPI doctors + users routers with schedules, role management, and password reset
-- [ ] 03-04-PLAN.md — Custom calendar page (Day/Week/Month) with appointment CRUD slide-over
+- [x] 03-04-PLAN.md — Custom calendar page (Day/Week/Month) with appointment CRUD slide-over
 - [x] 03-05-PLAN.md — Patient list page with search + patient profile with appointment/WhatsApp tabs
 - [x] 03-06-PLAN.md — Doctor management with availability grid + user management with role/status controls
 - [ ] 03-07-PLAN.md — Build verification + end-to-end visual walkthrough checkpoint

@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-06-PLAN.md
-last_updated: "2026-03-30T03:30:40.687Z"
+stopped_at: Completed 03-04-PLAN.md
+last_updated: "2026-03-30T03:33:32.090Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 6
   completed_phases: 2
   total_plans: 14
-  completed_plans: 12
+  completed_plans: 13
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-03-29)
 ## Current Position
 
 Phase: 03 (core-crud) — EXECUTING
-Plan: 6 of 7
+Plan: 7 of 7
 Status: Ready to execute
 Last activity: 2026-03-30
 
@@ -64,6 +64,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 03-core-crud P03 | 4min | 2 tasks | 3 files |
 | Phase 03-core-crud P05 | 12min | 2 tasks | 6 files |
 | Phase 03-core-crud P06 | 4min | 2 tasks | 7 files |
+| Phase 03-core-crud P04 | 4min | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -105,6 +106,9 @@ Recent decisions affecting current work:
 - [Phase 03-core-crud]: WhatsApp timeline: user=bg-green-500 right bubble, bot=bg-white border left bubble — matches D-10 visual spec
 - [Phase 03-core-crud]: schedule-grid uses DAY_INDICES mapping for Mon-Sun display order, converting from API day_of_week (0=Sunday)
 - [Phase 03-core-crud]: zod v4 enum uses 'as const' not required_error — zod v4 removed required_error from enum overload signature
+- [Phase 03-core-crud]: Custom calendar with date-fns + Tailwind per D-02 — no FullCalendar dependency, full green palette brand control
+- [Phase 03-core-crud]: CalendarDay uses absolute positioning formula for appointment blocks: top = minutesToOffset based on 48px per 30-min row
+- [Phase 03-core-crud]: Medico role check in agenda page via useSession() hides doctor filter; API enforces medico isolation server-side
 
 ### Pending Todos
 
@@ -118,6 +122,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T03:30:40.684Z
-Stopped at: Completed 03-06-PLAN.md
+Last session: 2026-03-30T03:33:32.087Z
+Stopped at: Completed 03-04-PLAN.md
 Resume file: None
