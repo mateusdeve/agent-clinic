@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Foundation** - Next.js project, design system, and public landing page (completed 2026-03-29)
 - [x] **Phase 2: Auth + Multi-Tenancy** - Login, JWT, roles, tenant isolation, backend API layer (completed 2026-03-30)
 - [x] **Phase 3: Core CRUD** - Patients, doctors, appointments, and user management (completed 2026-03-30)
-- [ ] **Phase 4: WhatsApp Panel** - Real-time inbox, conversation history, and human takeover
+- [x] **Phase 4: WhatsApp Panel** - Real-time inbox, conversation history, and human takeover (completed 2026-03-30)
 - [ ] **Phase 5: Dashboard + Campaigns** - KPI metrics, charts, message templates, and bulk campaigns
 - [ ] **Phase 6: Polish + Hardening** - Responsive verification, error boundaries, LGPD, and integration testing
 
@@ -127,6 +127,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 1. Foundation | 3/3 | Complete   | 2026-03-29 |
 | 2. Auth + Multi-Tenancy | 4/4 | Complete   | 2026-03-30 |
 | 3. Core CRUD | 7/7 | Complete   | 2026-03-30 |
-| 4. WhatsApp Panel | 2/3 | In Progress|  |
+| 4. WhatsApp Panel | 3/3 | Complete   | 2026-03-30 |
 | 5. Dashboard + Campaigns | 0/TBD | Not started | - |
 | 6. Polish + Hardening | 0/TBD | Not started | - |
