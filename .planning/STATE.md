@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 05-02-PLAN.md
-last_updated: "2026-03-30T14:13:06.915Z"
+stopped_at: Completed 05-dashboard-campaigns-05-01-PLAN.md
+last_updated: "2026-03-30T14:16:17.842Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 6
   completed_phases: 4
   total_plans: 22
-  completed_plans: 18
+  completed_plans: 19
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-03-29)
 ## Current Position
 
 Phase: 05 (dashboard-campaigns) — EXECUTING
-Plan: 2 of 5
+Plan: 3 of 5
 Status: Ready to execute
 Last activity: 2026-03-30
 
@@ -70,6 +70,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 04-whatsapp-panel P02 | 6min | 2 tasks | 10 files |
 | Phase 04-whatsapp-panel P03 | 5min | 2 tasks | 0 files |
 | Phase 05-dashboard-campaigns P02 | 15min | 2 tasks | 9 files |
+| Phase 05-dashboard-campaigns P01 | 20min | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -125,6 +126,9 @@ Recent decisions affecting current work:
 - [Phase 05-dashboard-campaigns]: KpiCard is RSC (no use client) — pure presentational with icon + label + value
 - [Phase 05-dashboard-campaigns]: Recharts LineChart and BarChart each have use client directive per SSR pitfall rule
 - [Phase 05-dashboard-campaigns]: Admin-only charts conditional render (not display:none) — prevents unnecessary API fetches
+- [Phase 05-dashboard-campaigns]: Secondary router from campaigns.py for /api/conversations/{phone}/send-template — no changes to conversations.py needed
+- [Phase 05-dashboard-campaigns]: FOR UPDATE SKIP LOCKED for campaign dispatch prevents double-dispatch in concurrent APScheduler runs
+- [Phase 05-dashboard-campaigns]: ALLOWED_VARS whitelist in extract_variables/render_template prevents template variable injection
 
 ### Pending Todos
 
@@ -138,6 +142,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T14:13:06.913Z
-Stopped at: Completed 05-02-PLAN.md
+Last session: 2026-03-30T14:16:17.839Z
+Stopped at: Completed 05-dashboard-campaigns-05-01-PLAN.md
 Resume file: None

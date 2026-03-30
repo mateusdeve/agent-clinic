@@ -71,11 +71,11 @@
 
 ### WhatsApp Panel — Templates & Campaigns
 
-- [ ] **WPP-12**: Admin pode criar/editar templates de mensagem com variaveis (nome, data)
-- [ ] **WPP-13**: Recepcionista pode usar template para enviar mensagem rapida a um paciente
-- [ ] **WPP-14**: Admin pode criar campanha selecionando segmento de pacientes e template
-- [ ] **WPP-15**: Sistema envia campanha respeitando rate limits do WhatsApp
-- [ ] **WPP-16**: Admin ve status da campanha (enviado/entregue/lido/falha)
+- [x] **WPP-12**: Admin pode criar/editar templates de mensagem com variaveis (nome, data)
+- [x] **WPP-13**: Recepcionista pode usar template para enviar mensagem rapida a um paciente
+- [x] **WPP-14**: Admin pode criar campanha selecionando segmento de pacientes e template
+- [x] **WPP-15**: Sistema envia campanha respeitando rate limits do WhatsApp
+- [x] **WPP-16**: Admin ve status da campanha (enviado/entregue/lido/falha)
 
 ### Doctor Management
 
@@ -192,11 +192,11 @@
 | DASH-02 | Phase 5 | Complete |
 | DASH-03 | Phase 5 | Complete |
 | DASH-04 | Phase 5 | Complete |
-| WPP-12 | Phase 5 | Pending |
-| WPP-13 | Phase 5 | Pending |
-| WPP-14 | Phase 5 | Pending |
-| WPP-15 | Phase 5 | Pending |
-| WPP-16 | Phase 5 | Pending |
+| WPP-12 | Phase 5 | Complete |
+| WPP-13 | Phase 5 | Complete |
+| WPP-14 | Phase 5 | Complete |
+| WPP-15 | Phase 5 | Complete |
+| WPP-16 | Phase 5 | Complete |
 
 **Coverage:**
 - v1 requirements: 57 total
