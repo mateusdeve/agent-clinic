@@ -32,11 +32,11 @@ O paciente consegue agendar, remarcar e tirar duvidas pelo WhatsApp 24h por dia 
 - [ ] Painel WhatsApp: historico completo com busca
 - [ ] Painel WhatsApp: takeover manual (humano assume da IA)
 - [ ] Painel WhatsApp: templates e campanhas de mensagens em massa
-- [ ] Gestao de agenda (visualizacao, bloqueio de horarios, remarcacao)
-- [ ] Gestao de pacientes (cadastro, historico, contatos)
-- [ ] Gestao de medicos/profissionais (perfil, especialidades, horarios)
-- [ ] Gestao de usuarios do sistema (CRUD, permissoes por role)
-- [ ] API REST para o frontend consumir dados do backend existente
+- ✓ Gestao de agenda (visualizacao, bloqueio de horarios, remarcacao) — Validated in Phase 03: Core CRUD
+- ✓ Gestao de pacientes (cadastro, historico, contatos) — Validated in Phase 03: Core CRUD
+- ✓ Gestao de medicos/profissionais (perfil, especialidades, horarios) — Validated in Phase 03: Core CRUD
+- ✓ Gestao de usuarios do sistema (CRUD, permissoes por role) — Validated in Phase 03: Core CRUD
+- ✓ API REST para o frontend consumir dados do backend existente — Validated in Phase 03: Core CRUD
 
 ### Out of Scope
 
@@ -94,4 +94,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-30 after Phase 02 completion — auth + multi-tenancy with NextAuth v5, FastAPI JWT, PostgreSQL RLS*
+*Last updated: 2026-03-30 after Phase 03 completion — full CRUD for patients, doctors, appointments, users with calendar UI*
