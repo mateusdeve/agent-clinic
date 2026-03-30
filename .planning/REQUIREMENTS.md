@@ -14,18 +14,18 @@
 
 ### Authentication
 
-- [ ] **AUTH-01**: Usuario pode fazer login com email e senha
-- [ ] **AUTH-02**: Usuario pode fazer logout de qualquer pagina
+- [x] **AUTH-01**: Usuario pode fazer login com email e senha
+- [x] **AUTH-02**: Usuario pode fazer logout de qualquer pagina
 - [ ] **AUTH-03**: Sessao do usuario persiste entre recarregamentos do browser (JWT + refresh token)
-- [ ] **AUTH-04**: Sistema suporta tres roles: Admin, Recepcionista, Medico
+- [x] **AUTH-04**: Sistema suporta tres roles: Admin, Recepcionista, Medico
 - [ ] **AUTH-05**: Rotas protegidas redirecionam usuario nao autenticado para login
-- [ ] **AUTH-06**: Funcionalidades sao restritas por role (RBAC)
+- [x] **AUTH-06**: Funcionalidades sao restritas por role (RBAC)
 
 ### Multi-Tenancy
 
-- [ ] **TENANT-01**: Cada clinica tem dados completamente isolados (tenant_id em todas as tabelas)
-- [ ] **TENANT-02**: Nenhum endpoint retorna dados de outra clinica
-- [ ] **TENANT-03**: tenant_id e extraido do JWT automaticamente, nunca passado como parametro
+- [x] **TENANT-01**: Cada clinica tem dados completamente isolados (tenant_id em todas as tabelas)
+- [x] **TENANT-02**: Nenhum endpoint retorna dados de outra clinica
+- [x] **TENANT-03**: tenant_id e extraido do JWT automaticamente, nunca passado como parametro
 
 ### Dashboard
 
@@ -144,15 +144,15 @@
 | LAND-02 | Phase 1 | Complete |
 | LAND-03 | Phase 1 | Complete |
 | LAND-04 | Phase 1 | Complete |
-| AUTH-01 | Phase 2 | Pending |
-| AUTH-02 | Phase 2 | Pending |
+| AUTH-01 | Phase 2 | Complete |
+| AUTH-02 | Phase 2 | Complete |
 | AUTH-03 | Phase 2 | Pending |
-| AUTH-04 | Phase 2 | Pending |
+| AUTH-04 | Phase 2 | Complete |
 | AUTH-05 | Phase 2 | Pending |
-| AUTH-06 | Phase 2 | Pending |
-| TENANT-01 | Phase 2 | Pending |
-| TENANT-02 | Phase 2 | Pending |
-| TENANT-03 | Phase 2 | Pending |
+| AUTH-06 | Phase 2 | Complete |
+| TENANT-01 | Phase 2 | Complete |
+| TENANT-02 | Phase 2 | Complete |
+| TENANT-03 | Phase 2 | Complete |
 | API-02 | Phase 2 | Pending |
 | API-03 | Phase 2 | Pending |
 | AGENDA-01 | Phase 3 | Pending |
