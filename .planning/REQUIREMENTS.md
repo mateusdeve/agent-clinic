@@ -59,7 +59,7 @@
 - [x] **WPP-03**: Conversas mostram indicador de status: IA ativa / takeover humano / resolvida
 - [x] **WPP-04**: Novas mensagens aparecem em tempo real sem recarregar a pagina
 - [x] **WPP-05**: Recepcionista pode buscar conversas por nome/telefone do paciente
-- [ ] **WPP-06**: Painel lateral mostra info do paciente junto com a conversa
+- [x] **WPP-06**: Painel lateral mostra info do paciente junto com a conversa
 
 ### WhatsApp Panel — Takeover
 
@@ -67,7 +67,7 @@
 - [x] **WPP-08**: Recepcionista pode enviar mensagens como humano pelo painel
 - [x] **WPP-09**: Recepcionista pode clicar "Devolver para IA" para reativar o bot
 - [x] **WPP-10**: IA nao responde enquanto conversa esta em modo takeover
-- [ ] **WPP-11**: Indicador visual mostra que conversa esta em modo humano para todos os usuarios conectados
+- [x] **WPP-11**: Indicador visual mostra que conversa esta em modo humano para todos os usuarios conectados
 
 ### WhatsApp Panel — Templates & Campaigns
 
@@ -181,12 +181,12 @@
 | WPP-03 | Phase 4 | Complete |
 | WPP-04 | Phase 4 | Complete |
 | WPP-05 | Phase 4 | Complete |
-| WPP-06 | Phase 4 | Pending |
+| WPP-06 | Phase 4 | Complete |
 | WPP-07 | Phase 4 | Complete |
 | WPP-08 | Phase 4 | Complete |
 | WPP-09 | Phase 4 | Complete |
 | WPP-10 | Phase 4 | Complete |
-| WPP-11 | Phase 4 | Pending |
+| WPP-11 | Phase 4 | Complete |
 | API-04 | Phase 4 | Complete |
 | DASH-01 | Phase 5 | Pending |
 | DASH-02 | Phase 5 | Pending |

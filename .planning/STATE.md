@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-whatsapp-panel 04-01-PLAN.md
-last_updated: "2026-03-30T11:23:12.717Z"
+stopped_at: Completed 04-whatsapp-panel 04-02-PLAN.md
+last_updated: "2026-03-30T11:30:58.635Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 6
   completed_phases: 3
   total_plans: 17
-  completed_plans: 15
+  completed_plans: 16
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-03-29)
 ## Current Position
 
 Phase: 04 (whatsapp-panel) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 Status: Ready to execute
 Last activity: 2026-03-30
 
@@ -67,6 +67,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 03-core-crud P04 | 4min | 2 tasks | 7 files |
 | Phase 03-core-crud P07 | 5min | 2 tasks | 0 files |
 | Phase 04-whatsapp-panel PP01 | 5min | 3 tasks | 7 files |
+| Phase 04-whatsapp-panel P02 | 6min | 2 tasks | 10 files |
 
 ## Accumulated Context
 
@@ -116,6 +117,9 @@ Recent decisions affecting current work:
 - [Phase 04-whatsapp-panel]: Takeover check in webhook_evolution BEFORE handle_message dispatch — prevents Sofia responding during human control
 - [Phase 04-whatsapp-panel]: Lazy imports inside function bodies for socketio_server in webhook.py — solves circular import
 - [Phase 04-whatsapp-panel]: Module-level redis_client in socketio_server.py — shared by conversations router and webhook
+- [Phase 04-whatsapp-panel]: Socket.IO singleton uses default namespace (no /inbox) to match socketio_server.py server setup
+- [Phase 04-whatsapp-panel]: InboxPanel uses -m-6 to escape main p-6 padding for full-height 3-column layout
+- [Phase 04-whatsapp-panel]: PatientSidebar conditionally rendered — hidden when no conversation selected
 
 ### Pending Todos
 
@@ -129,6 +133,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T11:23:12.715Z
-Stopped at: Completed 04-whatsapp-panel 04-01-PLAN.md
+Last session: 2026-03-30T11:30:58.633Z
+Stopped at: Completed 04-whatsapp-panel 04-02-PLAN.md
 Resume file: None

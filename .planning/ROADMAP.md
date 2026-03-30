@@ -90,7 +90,7 @@ Plans:
 **Plans**: 3 plans
 Plans:
 - [x] 04-01-PLAN.md — Socket.IO server + conversations REST router + takeover mechanism + webhook bypass
-- [ ] 04-02-PLAN.md — Frontend Socket.IO client + 3-column inbox layout + real-time conversation UI
+- [x] 04-02-PLAN.md — Frontend Socket.IO client + 3-column inbox layout + real-time conversation UI
 - [ ] 04-03-PLAN.md — Build verification + visual walkthrough checkpoint
 **UI hint**: yes
 
@@ -127,6 +127,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 1. Foundation | 3/3 | Complete   | 2026-03-29 |
 | 2. Auth + Multi-Tenancy | 4/4 | Complete   | 2026-03-30 |
 | 3. Core CRUD | 7/7 | Complete   | 2026-03-30 |
-| 4. WhatsApp Panel | 1/3 | In Progress|  |
+| 4. WhatsApp Panel | 2/3 | In Progress|  |
 | 5. Dashboard + Campaigns | 0/TBD | Not started | - |
 | 6. Polish + Hardening | 0/TBD | Not started | - |
