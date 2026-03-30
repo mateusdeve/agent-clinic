@@ -87,7 +87,11 @@ Plans:
   3. Each conversation shows a visible status indicator: IA ativa, Atendimento humano, or Resolvida
   4. Recepcionista clicks "Assumir" and can send messages as a human; the AI stops responding immediately and all other logged-in users see the takeover indicator
   5. Recepcionista clicks "Devolver para IA" and the AI agent resumes responding to that conversation
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+- [ ] 04-01-PLAN.md — Socket.IO server + conversations REST router + takeover mechanism + webhook bypass
+- [ ] 04-02-PLAN.md — Frontend Socket.IO client + 3-column inbox layout + real-time conversation UI
+- [ ] 04-03-PLAN.md — Build verification + visual walkthrough checkpoint
 **UI hint**: yes
 
 ### Phase 5: Dashboard + Campaigns
@@ -123,6 +127,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 1. Foundation | 3/3 | Complete   | 2026-03-29 |
 | 2. Auth + Multi-Tenancy | 4/4 | Complete   | 2026-03-30 |
 | 3. Core CRUD | 7/7 | Complete   | 2026-03-30 |
-| 4. WhatsApp Panel | 0/TBD | Not started | - |
+| 4. WhatsApp Panel | 0/3 | In progress | - |
 | 5. Dashboard + Campaigns | 0/TBD | Not started | - |
 | 6. Polish + Hardening | 0/TBD | Not started | - |
