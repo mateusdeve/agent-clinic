@@ -1,13 +1,18 @@
-import "next-auth";
+// NextAuth v5 type augmentation
+// Reference: https://authjs.dev/getting-started/typescript#module-augmentation
 
-declare module "next-auth" {
+declare module "@auth/core/types" {
   interface User {
     role: string;
     tenant_id: string;
     access_token: string;
   }
-  interface Session {
-    user: User & { id: string; role: string; tenant_id: string };
+}
+
+declare module "@auth/core/adapters" {
+  interface AdapterUser {
+    role: string;
+    tenant_id: string;
     access_token: string;
   }
 }
