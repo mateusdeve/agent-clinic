@@ -20,6 +20,8 @@ from src.api.orchestrator import handle_message
 from src.api.auth import router as auth_router
 from src.api.patients import router as patients_router
 from src.api.appointments import router as appointments_router
+from src.api.doctors import router as doctors_router
+from src.api.users import router as users_router
 from src.tools.followup import buscar_followups_pendentes, marcar_enviado, montar_mensagem
 
 logging.basicConfig(
@@ -43,6 +45,8 @@ app.add_middleware(
 app.include_router(auth_router)
 app.include_router(patients_router)
 app.include_router(appointments_router)
+app.include_router(doctors_router)
+app.include_router(users_router)
 
 # Inicializa dependências
 session_manager = SessionManager(os.getenv("REDIS_URL", ""))
