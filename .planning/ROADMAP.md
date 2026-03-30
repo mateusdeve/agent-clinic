@@ -107,7 +107,7 @@ Plans:
 Plans:
 - [x] 05-01-PLAN.md — Migration 005 + dashboard/templates/campaigns backend routers + test stubs
 - [x] 05-02-PLAN.md — Install recharts + dashboard /home page rewrite + KPI cards + charts + sidebar nav
-- [ ] 05-03-PLAN.md — Templates page with CRUD, slide-over form, and live preview
+- [x] 05-03-PLAN.md — Templates page with CRUD, slide-over form, and live preview
 - [ ] 05-04-PLAN.md — Campaigns list page, step wizard, detail page, and QuickSend in inbox
 - [ ] 05-05-PLAN.md — Build verification + visual walkthrough checkpoint
 **UI hint**: yes
@@ -134,5 +134,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 2. Auth + Multi-Tenancy | 4/4 | Complete   | 2026-03-30 |
 | 3. Core CRUD | 7/7 | Complete   | 2026-03-30 |
 | 4. WhatsApp Panel | 3/3 | Complete   | 2026-03-30 |
-| 5. Dashboard + Campaigns | 2/5 | In Progress|  |
+| 5. Dashboard + Campaigns | 3/5 | In Progress|  |
 | 6. Polish + Hardening | 0/TBD | Not started | - |
