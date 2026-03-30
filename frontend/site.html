@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedIA — Atendente de IA para Clínicas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white: #ffffff;
+    --off-white: #f5f7f5;
+    --green-50: #edf7f0;
+    --green-100: #d0edd8;
+    --green-400: #4caf7d;
+    --green-500: #2e9e60;
+    --green-600: #1e7d48;
+    --green-900: #0d2e1a;
+    --gray-200: #e8ece9;
+    --gray-400: #9aaa9e;
+    --gray-600: #5a6b5f;
+    --gray-800: #2a352d;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--gray-800);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    color: var(--green-600);
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--green-400); font-style: italic; }
+  .nav-cta {
+    background: var(--green-500);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    text-decoration: none;
+  }
+  .nav-cta:hover { background: var(--green-600); transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 100px 48px 60px;
+    gap: 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, var(--green-50) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 0;
+  }
+  .hero-content { position: relative; z-index: 1; }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--green-50);
+    border: 1px solid var(--green-100);
+    color: var(--green-600);
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 28px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .badge::before { content: '●'; font-size: 0.5rem; color: var(--green-400); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.4rem, 4vw, 3.6rem);
+    line-height: 1.1;
+    color: var(--green-900);
+    margin-bottom: 24px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--green-500);
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--gray-600);
+    line-height: 1.7;
+    max-width: 480px;
+    margin-bottom: 40px;
+    font-weight: 300;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  /* FORM */
+  .waitlist-form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .waitlist-form input {
+    flex: 1;
+    min-width: 220px;
+    padding: 14px 20px;
+    border: 1.5px solid var(--gray-200);
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--gray-800);
+    background: var(--white);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .waitlist-form input:focus { border-color: var(--green-400); }
+  .waitlist-form input::placeholder { color: var(--gray-400); }
+  .btn-primary {
+    background: var(--green-500);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    white-space: nowrap;
+  }
+  .btn-primary:hover { background: var(--green-600); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(46,158,96,0.3); }
+  .form-note {
+    margin-top: 12px;
+    font-size: 0.78rem;
+    color: var(--gray-400);
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+
+  /* SOCIAL PROOF */
+  .social-proof {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 40px;
+    animation: fadeUp 0.6s 0.5s ease both;
+  }
+  .avatars { display: flex; }
+  .avatars span {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 2px solid white;
+    margin-left: -8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+  }
+  .avatars span:first-child { margin-left: 0; }
+  .av1 { background: #4caf7d; }
+  .av2 { background: #2e9e60; }
+  .av3 { background: #1e7d48; }
+  .av4 { background: #6cc494; }
+  .social-text { font-size: 0.85rem; color: var(--gray-600); }
+  .social-text strong { color: var(--green-600); }
+
+  /* HERO VISUAL */
+  .hero-visual {
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .chat-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 20px 60px rgba(46,158,96,0.12), 0 4px 16px rgba(0,0,0,0.06);
+    border: 1px solid var(--gray-200);
+    max-width: 420px;
+    margin: auto;
+  }
+  .chat-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--gray-200);
+    margin-bottom: 20px;
+  }
+  .agent-icon {
+    width: 42px; height: 42px;
+    background: linear-gradient(135deg, var(--green-400), var(--green-600));
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+  .agent-name { font-weight: 600; font-size: 0.95rem; }
+  .agent-status { font-size: 0.75rem; color: var(--green-500); display: flex; align-items: center; gap: 4px; }
+  .agent-status::before { content:'●'; font-size: 0.5rem; }
+  .dot-indicator {
+    margin-left: auto;
+    background: var(--green-50);
+    color: var(--green-600);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+
+  .chat-msg {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .msg {
+    padding: 12px 16px;
+    border-radius: 14px;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    max-width: 85%;
+    animation: fadeMsg 0.4s ease both;
+  }
+  .msg.bot {
+    background: var(--off-white);
+    color: var(--gray-800);
+    border-bottom-left-radius: 4px;
+    align-self: flex-start;
+  }
+  .msg.user {
+    background: var(--green-500);
+    color: white;
+    border-bottom-right-radius: 4px;
+    align-self: flex-end;
+  }
+  @keyframes fadeMsg { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
+  .msg:nth-child(1){animation-delay:0.5s}
+  .msg:nth-child(2){animation-delay:0.9s}
+  .msg:nth-child(3){animation-delay:1.3s}
+  .msg:nth-child(4){animation-delay:1.7s}
+
+  .typing {
+    display: flex; gap: 4px; padding: 12px 16px;
+    background: var(--off-white);
+    border-radius: 14px; border-bottom-left-radius: 4px;
+    width: fit-content;
+    animation: fadeMsg 0.4s 2.1s ease both;
+    opacity: 0;
+  }
+  .typing span {
+    width: 6px; height: 6px;
+    background: var(--gray-400);
+    border-radius: 50%;
+    animation: bounce 1.2s infinite;
+  }
+  .typing span:nth-child(2){animation-delay:0.2s}
+  .typing span:nth-child(3){animation-delay:0.4s}
+  @keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-6px)}}
+
+  /* STATS */
+  .stats {
+    background: var(--green-900);
+    padding: 60px 48px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    text-align: center;
+  }
+  .stat-item { position: relative; }
+  .stat-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0; top: 20%;
+    height: 60%;
+    width: 1px;
+    background: rgba(255,255,255,0.1);
+  }
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3rem;
+    color: var(--green-400);
+    display: block;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-label { font-size: 0.9rem; color: rgba(255,255,255,0.6); line-height: 1.4; }
+
+  /* FEATURES */
+  .features {
+    padding: 100px 48px;
+    background: var(--off-white);
+  }
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green-500);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    color: var(--green-900);
+    max-width: 520px;
+    line-height: 1.2;
+    margin-bottom: 60px;
+  }
+  .section-title em { font-style: italic; color: var(--green-500); }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .feat-card {
+    background: white;
+    border-radius: 20px;
+    padding: 32px;
+    border: 1px solid var(--gray-200);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .feat-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(46,158,96,0.1); }
+  .feat-icon {
+    width: 52px; height: 52px;
+    background: var(--green-50);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  .feat-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: var(--green-900);
+    margin-bottom: 10px;
+  }
+  .feat-card p {
+    font-size: 0.9rem;
+    color: var(--gray-600);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  /* HOW IT WORKS */
+  .how {
+    padding: 100px 48px;
+    background: white;
+  }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    margin-top: 60px;
+    position: relative;
+  }
+  .steps::before {
+    content: '';
+    position: absolute;
+    top: 28px; left: 12%;
+    right: 12%;
+    height: 1px;
+    background: repeating-linear-gradient(90deg, var(--green-200,#b4dfc4) 0 8px, transparent 8px 16px);
+  }
+  .step {
+    text-align: center;
+    position: relative;
+  }
+  .step-num {
+    width: 56px; height: 56px;
+    background: var(--green-500);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    margin: 0 auto 20px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 0 8px white;
+  }
+  .step h4 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.05rem;
+    color: var(--green-900);
+    margin-bottom: 8px;
+  }
+  .step p { font-size: 0.85rem; color: var(--gray-600); line-height: 1.6; font-weight: 300; }
+
+  /* TESTIMONIAL */
+  .testimonial {
+    background: var(--green-50);
+    padding: 80px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .testimonial-inner { max-width: 680px; }
+  .stars { color: #f4c245; font-size: 1.2rem; margin-bottom: 24px; letter-spacing: 2px; }
+  .quote {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+    color: var(--green-900);
+    line-height: 1.4;
+    font-style: italic;
+    margin-bottom: 28px;
+  }
+  .quote-author { font-size: 0.875rem; color: var(--gray-600); font-weight: 500; }
+  .quote-author strong { color: var(--green-600); }
+
+  /* CTA FINAL */
+  .final-cta {
+    padding: 100px 48px;
+    text-align: center;
+    background: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .final-cta::before {
+    content: '';
+    position: absolute;
+    bottom: -200px; left: 50%;
+    transform: translateX(-50%);
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, var(--green-50) 0%, transparent 60%);
+    border-radius: 50%;
+    z-index: 0;
+  }
+  .final-cta > * { position: relative; z-index: 1; }
+  .final-cta .badge { margin: 0 auto 28px; }
+  .final-cta h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    color: var(--green-900);
+    max-width: 600px;
+    margin: 0 auto 20px;
+    line-height: 1.2;
+  }
+  .final-cta h2 em { color: var(--green-500); font-style: italic; }
+  .final-cta p { color: var(--gray-600); font-weight: 300; max-width: 480px; margin: 0 auto 40px; }
+  .final-form { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; max-width: 500px; margin: 0 auto; }
+  .final-form input {
+    flex: 1;
+    min-width: 220px;
+    padding: 16px 22px;
+    border: 1.5px solid var(--gray-200);
+    border-radius: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .final-form input:focus { border-color: var(--green-400); }
+  .btn-lg {
+    padding: 16px 32px;
+    background: var(--green-500);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  }
+  .btn-lg:hover { background: var(--green-600); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(46,158,96,0.35); }
+
+  /* FOOTER */
+  footer {
+    background: var(--green-900);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 28px 48px;
+    font-size: 0.8rem;
+  }
+  footer strong { color: rgba(255,255,255,0.8); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SUCCESS */
+  .success-msg {
+    display: none;
+    padding: 14px 24px;
+    background: var(--green-50);
+    border: 1px solid var(--green-100);
+    color: var(--green-600);
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 16px;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
+    .hero-visual { display: none; }
+    .stats { grid-template-columns: 1fr; padding: 48px 24px; }
+    .stat-item::after { display: none; }
+    .features { padding: 60px 24px; }
+    .features-grid { grid-template-columns: 1fr; }
+    .how { padding: 60px 24px; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .steps::before { display: none; }
+    .testimonial { padding: 60px 24px; }
+    .final-cta { padding: 60px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Med<span>IA</span></div>
+  <a href="#waitlist" class="nav-cta">Entrar na lista</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="badge">Lançamento em breve</div>
+    <h1>O atendente que <em>nunca</em> tira folga da sua clínica</h1>
+    <p class="hero-sub">
+      Agendamentos, confirmações, lembretes e dúvidas — tudo resolvido por IA, 24 horas por dia. Sua equipe foca no que realmente importa: os pacientes.
+    </p>
+    <div class="waitlist-form" id="hero-form">
+      <input type="email" id="hero-email" placeholder="Seu melhor e-mail" autocomplete="email">
+      <button class="btn-primary" onclick="joinWaitlist('hero')">Quero entrar na lista →</button>
+    </div>
+    <p class="form-note">🔒 Sem spam. Acesso exclusivo para os primeiros inscritos.</p>
+    <div id="hero-success" class="success-msg">✅ Você está na lista! Avisaremos em primeira mão.</div>
+    <div class="social-proof">
+      <div class="avatars">
+        <span class="av1">AC</span>
+        <span class="av2">MD</span>
+        <span class="av3">RS</span>
+        <span class="av4">+</span>
+      </div>
+      <div class="social-text"><strong>+230 clínicas</strong> já na fila de espera</div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="chat-card">
+      <div class="chat-header">
+        <div class="agent-icon">🤖</div>
+        <div>
+          <div class="agent-name">Assistente da Clínica</div>
+          <div class="agent-status">Online agora</div>
+        </div>
+        <div class="dot-indicator">IA Ativa</div>
+      </div>
+      <div class="chat-msg">
+        <div class="msg bot">Olá! Sou o assistente virtual da Clínica. Como posso ajudar você hoje? 😊</div>
+        <div class="msg user">Preciso marcar uma consulta para amanhã de manhã</div>
+        <div class="msg bot">Claro! Temos horários disponíveis às <strong>09h00</strong> e <strong>10h30</strong> com a Dra. Ana. Qual prefere?</div>
+        <div class="msg user">09h00 perfeito!</div>
+        <div class="typing"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="stat-item">
+    <span class="stat-num">24h</span>
+    <div class="stat-label">Atendimento ininterrupto,<br>todos os dias</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">-70%</span>
+    <div class="stat-label">Redução de faltas<br>com lembretes automáticos</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">3×</span>
+    <div class="stat-label">Mais agendamentos<br>sem aumentar a equipe</div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="section-label">Recursos</div>
+  <div class="section-title">Tudo que sua clínica precisa, <em>automatizado</em></div>
+  <div class="features-grid">
+    <div class="feat-card">
+      <div class="feat-icon">📅</div>
+      <h3>Agendamento Inteligente</h3>
+      <p>O paciente agenda pelo WhatsApp ou site em segundos. O sistema verifica disponibilidade e confirma automaticamente.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🔔</div>
+      <h3>Lembretes Automáticos</h3>
+      <p>Reduza faltas com mensagens automáticas 24h antes da consulta. Confirmação com um clique, remarcação sem esforço.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">💬</div>
+      <h3>Atendimento 24/7</h3>
+      <p>Responde dúvidas, fornece endereço, preparo para exames e muito mais — enquanto você e sua equipe descansam.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📊</div>
+      <h3>Dashboard da Clínica</h3>
+      <p>Acompanhe ocupação, taxa de confirmação e histórico de conversas em um painel simples e intuitivo.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">⚡</div>
+      <h3>Integração Rápida</h3>
+      <p>Conecta com seu sistema de prontuário atual. Configuração em menos de 1 dia, sem precisar de TI.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🩺</div>
+      <h3>Personalizado para Saúde</h3>
+      <p>Treinado com linguagem médica e protocolos de atendimento. Nunca dá orientações clínicas — apenas logística.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="section-label">Como funciona</div>
+  <div class="section-title">Simples de configurar, <em>poderoso</em> na prática</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4>Cadastre sua clínica</h4>
+      <p>Informe os dados básicos, especialidades e horários de atendimento.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4>Conecte o WhatsApp</h4>
+      <p>Integração simples com o número já usado pela sua clínica.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4>Personalize o atendente</h4>
+      <p>Nome, tom de voz e respostas específicas para sua especialidade.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h4>Ative e descanse</h4>
+      <p>A IA cuida do atendimento. Você foca nos pacientes presenciais.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial">
+  <div class="testimonial-inner">
+    <div class="stars">★★★★★</div>
+    <p class="quote">"Finalmente consegui sair de férias sem me preocupar com o agendamento. A IA atendeu mais de 80 pacientes enquanto eu estava viajando."</p>
+    <p class="quote-author"><strong>Dra. Mariana Souza</strong> — Dermatologista, São Paulo</p>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" id="waitlist">
+  <div class="badge">Vagas limitadas no lançamento</div>
+  <h2>Garanta acesso <em>antecipado</em> com desconto exclusivo</h2>
+  <p>Os primeiros inscritos terão preço especial de fundadores e suporte prioritário na configuração.</p>
+  <div class="final-form">
+    <input type="email" id="final-email" placeholder="Seu melhor e-mail">
+    <button class="btn-lg" onclick="joinWaitlist('final')">Entrar na lista gratuita</button>
+  </div>
+  <div id="final-success" class="success-msg">✅ Você está na lista! Avisaremos em primeira mão.</div>
+  <p style="margin-top:16px; font-size:0.78rem; color:var(--gray-400);">Sem cartão de crédito. Cancele quando quiser.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>MedIA</strong> — Atendimento inteligente para clínicas &nbsp;·&nbsp; Feito com ❤️ no Brasil &nbsp;·&nbsp; <a href="mailto:contato@media.com.br" style="color:rgba(255,255,255,0.5);text-decoration:none;">contato@media.com.br</a>
+</footer>
+
+<script>
+  function joinWaitlist(source) {
+    const input = document.getElementById(source + '-email');
+    const success = document.getElementById(source + '-success');
+    const email = input.value.trim();
+    if (!email || !email.includes('@')) {
+      input.style.borderColor = '#e55';
+      input.focus();
+      setTimeout(() => input.style.borderColor = '', 1500);
+      return;
+    }
+    input.parentElement.style.display = 'none';
+    success.style.display = 'block';
+    // Aqui você integraria com sua ferramenta de e-mail (Mailchimp, ConvertKit, etc.)
+    console.log('New waitlist signup:', email);
+  }
+
+  // Intersection Observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.feat-card, .step').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>

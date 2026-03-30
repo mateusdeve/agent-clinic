@@ -69,7 +69,7 @@ completed: 2026-03-29
 1. **Task 1: Create pytest config and shared test fixtures** - `411a83b` (chore)
 2. **Task 2: Create test stub files for auth, RBAC, and tenant isolation** - `599fca9` (test)
 
-**Plan metadata:** _(pending final docs commit)_
+**Plan metadata:** `8499add` (docs: complete test infrastructure plan)
 
 ## Files Created/Modified
 
@@ -100,6 +100,19 @@ None - plan executed exactly as written.
 - Plan 01 (DB migrations + RLS) should flip xfail on `test_rls_policies_exist` and `test_tenant_isolation_across_clinics`
 - Plan 02 (auth endpoints) should flip xfail on all test_auth.py and test_rbac.py stubs
 - Broken `.venv` shebang should be fixed before running tests in CI — suggest recreating venv from requirements.txt
+
+## Self-Check: PASSED
+
+- FOUND: agent-service/pytest.ini
+- FOUND: agent-service/tests/__init__.py
+- FOUND: agent-service/tests/conftest.py
+- FOUND: agent-service/tests/test_auth.py
+- FOUND: agent-service/tests/test_rbac.py
+- FOUND: agent-service/tests/test_tenant_isolation.py
+- FOUND: .planning/phases/02-auth-multi-tenancy/02-00-SUMMARY.md
+- FOUND commit: 411a83b (chore: pytest config and fixtures)
+- FOUND commit: 599fca9 (test: xfail stub files)
+- FOUND commit: 8499add (docs: plan metadata)
 
 ---
 *Phase: 02-auth-multi-tenancy*
