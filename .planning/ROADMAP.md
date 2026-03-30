@@ -91,7 +91,7 @@ Plans:
 Plans:
 - [x] 04-01-PLAN.md — Socket.IO server + conversations REST router + takeover mechanism + webhook bypass
 - [x] 04-02-PLAN.md — Frontend Socket.IO client + 3-column inbox layout + real-time conversation UI
-- [ ] 04-03-PLAN.md — Build verification + visual walkthrough checkpoint
+- [x] 04-03-PLAN.md — Build verification + visual walkthrough checkpoint
 **UI hint**: yes
 
 ### Phase 5: Dashboard + Campaigns
