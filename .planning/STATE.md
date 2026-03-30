@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
-stopped_at: Phase 4 context gathered
-last_updated: "2026-03-30T03:51:02.444Z"
+status: executing
+stopped_at: Completed 04-whatsapp-panel 04-01-PLAN.md
+last_updated: "2026-03-30T11:23:12.717Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 6
   completed_phases: 3
-  total_plans: 14
-  completed_plans: 14
+  total_plans: 17
+  completed_plans: 15
   percent: 0
 ---
 
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-29)
 
 **Core value:** O paciente consegue agendar, remarcar e tirar duvidas pelo WhatsApp 24h sem intervencao humana, e a equipe da clinica tem visibilidade total das conversas e agendamentos em tempo real.
-**Current focus:** Phase 03 — core-crud
+**Current focus:** Phase 04 — whatsapp-panel
 
 ## Current Position
 
-Phase: 4
-Plan: Not started
-Status: Phase complete — ready for verification
+Phase: 04 (whatsapp-panel) — EXECUTING
+Plan: 2 of 3
+Status: Ready to execute
 Last activity: 2026-03-30
 
 Progress: [░░░░░░░░░░] 0%
@@ -66,6 +66,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 03-core-crud P06 | 4min | 2 tasks | 7 files |
 | Phase 03-core-crud P04 | 4min | 2 tasks | 7 files |
 | Phase 03-core-crud P07 | 5min | 2 tasks | 0 files |
+| Phase 04-whatsapp-panel PP01 | 5min | 3 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -111,6 +112,10 @@ Recent decisions affecting current work:
 - [Phase 03-core-crud]: CalendarDay uses absolute positioning formula for appointment blocks: top = minutesToOffset based on 48px per 30-min row
 - [Phase 03-core-crud]: Medico role check in agenda page via useSession() hides doctor filter; API enforces medico isolation server-side
 - [Phase 03-core-crud]: Phase 3 approved via user visual walkthrough — all 6 areas passed: agenda views, patient list/profile, doctor management, user management, medico role isolation
+- [Phase 04-whatsapp-panel]: python-socketio cors_allowed_origins=[] prevents duplicate CORS headers with FastAPI CORSMiddleware
+- [Phase 04-whatsapp-panel]: Takeover check in webhook_evolution BEFORE handle_message dispatch — prevents Sofia responding during human control
+- [Phase 04-whatsapp-panel]: Lazy imports inside function bodies for socketio_server in webhook.py — solves circular import
+- [Phase 04-whatsapp-panel]: Module-level redis_client in socketio_server.py — shared by conversations router and webhook
 
 ### Pending Todos
 
@@ -124,6 +129,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T03:51:02.439Z
-Stopped at: Phase 4 context gathered
-Resume file: .planning/phases/04-whatsapp-panel/04-CONTEXT.md
+Last session: 2026-03-30T11:23:12.715Z
+Stopped at: Completed 04-whatsapp-panel 04-01-PLAN.md
+Resume file: None

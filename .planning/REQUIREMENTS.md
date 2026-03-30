@@ -54,19 +54,19 @@
 
 ### WhatsApp Panel — Inbox
 
-- [ ] **WPP-01**: Recepcionista ve lista de conversas em tempo real via WebSocket
-- [ ] **WPP-02**: Recepcionista pode abrir conversa e ler historico completo de mensagens
-- [ ] **WPP-03**: Conversas mostram indicador de status: IA ativa / takeover humano / resolvida
-- [ ] **WPP-04**: Novas mensagens aparecem em tempo real sem recarregar a pagina
-- [ ] **WPP-05**: Recepcionista pode buscar conversas por nome/telefone do paciente
+- [x] **WPP-01**: Recepcionista ve lista de conversas em tempo real via WebSocket
+- [x] **WPP-02**: Recepcionista pode abrir conversa e ler historico completo de mensagens
+- [x] **WPP-03**: Conversas mostram indicador de status: IA ativa / takeover humano / resolvida
+- [x] **WPP-04**: Novas mensagens aparecem em tempo real sem recarregar a pagina
+- [x] **WPP-05**: Recepcionista pode buscar conversas por nome/telefone do paciente
 - [ ] **WPP-06**: Painel lateral mostra info do paciente junto com a conversa
 
 ### WhatsApp Panel — Takeover
 
-- [ ] **WPP-07**: Recepcionista pode clicar "Assumir" para desativar IA naquela conversa
-- [ ] **WPP-08**: Recepcionista pode enviar mensagens como humano pelo painel
-- [ ] **WPP-09**: Recepcionista pode clicar "Devolver para IA" para reativar o bot
-- [ ] **WPP-10**: IA nao responde enquanto conversa esta em modo takeover
+- [x] **WPP-07**: Recepcionista pode clicar "Assumir" para desativar IA naquela conversa
+- [x] **WPP-08**: Recepcionista pode enviar mensagens como humano pelo painel
+- [x] **WPP-09**: Recepcionista pode clicar "Devolver para IA" para reativar o bot
+- [x] **WPP-10**: IA nao responde enquanto conversa esta em modo takeover
 - [ ] **WPP-11**: Indicador visual mostra que conversa esta em modo humano para todos os usuarios conectados
 
 ### WhatsApp Panel — Templates & Campaigns
@@ -96,7 +96,7 @@
 - [x] **API-01**: FastAPI expoe endpoints REST para todas as entidades (patients, appointments, doctors, users, conversations)
 - [x] **API-02**: FastAPI implementa autenticacao JWT com refresh token
 - [x] **API-03**: FastAPI implementa middleware de multi-tenancy com filtro automatico por tenant_id
-- [ ] **API-04**: FastAPI integra Socket.IO para streaming de mensagens WhatsApp em tempo real
+- [x] **API-04**: FastAPI integra Socket.IO para streaming de mensagens WhatsApp em tempo real
 
 ## v2 Requirements
 
@@ -176,18 +176,18 @@
 | USER-04 | Phase 3 | Complete |
 | USER-05 | Phase 3 | Complete |
 | API-01 | Phase 3 | Complete |
-| WPP-01 | Phase 4 | Pending |
-| WPP-02 | Phase 4 | Pending |
-| WPP-03 | Phase 4 | Pending |
-| WPP-04 | Phase 4 | Pending |
-| WPP-05 | Phase 4 | Pending |
+| WPP-01 | Phase 4 | Complete |
+| WPP-02 | Phase 4 | Complete |
+| WPP-03 | Phase 4 | Complete |
+| WPP-04 | Phase 4 | Complete |
+| WPP-05 | Phase 4 | Complete |
 | WPP-06 | Phase 4 | Pending |
-| WPP-07 | Phase 4 | Pending |
-| WPP-08 | Phase 4 | Pending |
-| WPP-09 | Phase 4 | Pending |
-| WPP-10 | Phase 4 | Pending |
+| WPP-07 | Phase 4 | Complete |
+| WPP-08 | Phase 4 | Complete |
+| WPP-09 | Phase 4 | Complete |
+| WPP-10 | Phase 4 | Complete |
 | WPP-11 | Phase 4 | Pending |
-| API-04 | Phase 4 | Pending |
+| API-04 | Phase 4 | Complete |
 | DASH-01 | Phase 5 | Pending |
 | DASH-02 | Phase 5 | Pending |
 | DASH-03 | Phase 5 | Pending |
