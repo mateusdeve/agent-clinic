@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { LogoutButton } from "./logout-button";
+import { MobileNav } from "@/components/dashboard/MobileNav";
 
 export default async function DashboardLayout({
   children,
@@ -20,7 +21,10 @@ export default async function DashboardLayout({
     <div className="min-h-screen flex flex-col">
       {/* Header bar */}
       <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 shrink-0">
-        <span className="font-serif text-green-600 text-xl">MedIA</span>
+        <div className="flex items-center gap-3">
+          <MobileNav role={role} />
+          <span className="font-serif text-green-600 text-xl">MedIA</span>
+        </div>
         <div className="flex items-center gap-3">
           <div className="text-right">
             <p className="text-sm font-medium text-gray-800">{session.user.name}</p>
