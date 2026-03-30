@@ -79,17 +79,17 @@
 
 ### Doctor Management
 
-- [ ] **DOC-01**: Admin ve lista de medicos com especialidade
+- [x] **DOC-01**: Admin ve lista de medicos com especialidade
 - [x] **DOC-02**: Admin pode criar/editar perfil de medico (nome, especialidade, CRM, horarios)
 - [x] **DOC-03**: Admin pode definir grade de disponibilidade por medico (dia x horarios)
 
 ### User Management
 
-- [ ] **USER-01**: Admin ve lista de usuarios do sistema com role
-- [ ] **USER-02**: Admin pode criar usuario com atribuicao de role
-- [ ] **USER-03**: Admin pode editar role de usuario existente
-- [ ] **USER-04**: Admin pode desativar/reativar usuario
-- [ ] **USER-05**: Usuario pode redefinir senha
+- [x] **USER-01**: Admin ve lista de usuarios do sistema com role
+- [x] **USER-02**: Admin pode criar usuario com atribuicao de role
+- [x] **USER-03**: Admin pode editar role de usuario existente
+- [x] **USER-04**: Admin pode desativar/reativar usuario
+- [x] **USER-05**: Usuario pode redefinir senha
 
 ### Backend API
 
@@ -167,14 +167,14 @@
 | PAT-03 | Phase 3 | Complete |
 | PAT-04 | Phase 3 | Complete |
 | PAT-05 | Phase 3 | Complete |
-| DOC-01 | Phase 3 | Pending |
+| DOC-01 | Phase 3 | Complete |
 | DOC-02 | Phase 3 | Complete |
 | DOC-03 | Phase 3 | Complete |
-| USER-01 | Phase 3 | Pending |
-| USER-02 | Phase 3 | Pending |
-| USER-03 | Phase 3 | Pending |
-| USER-04 | Phase 3 | Pending |
-| USER-05 | Phase 3 | Pending |
+| USER-01 | Phase 3 | Complete |
+| USER-02 | Phase 3 | Complete |
+| USER-03 | Phase 3 | Complete |
+| USER-04 | Phase 3 | Complete |
+| USER-05 | Phase 3 | Complete |
 | API-01 | Phase 3 | Complete |
 | WPP-01 | Phase 4 | Pending |
 | WPP-02 | Phase 4 | Pending |
