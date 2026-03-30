@@ -79,3 +79,38 @@ export interface BlockedSlot {
   end_time: string | null;
   reason: string | null;
 }
+
+// ─── WhatsApp Inbox (Phase 4) ─────────────────────────────────────────────────
+
+export type ConversationStatus = "ia_ativa" | "humano" | "resolvida";
+
+export interface ConversationSummary {
+  session_id: string;
+  phone: string;
+  patient_nome: string | null;
+  patient_id: string | null;
+  last_message_at: string;
+  last_message_preview: string | null;
+  message_count: number;
+  status: ConversationStatus;
+  human_name: string | null;
+}
+
+export interface NewMessageEvent {
+  phone: string;
+  role: "user" | "assistant";
+  content: string;
+  created_at: string;
+  sent_by_human?: boolean;
+}
+
+export interface ConversationUpdatedEvent {
+  phone: string;
+  status: ConversationStatus;
+  human_name?: string;
+}
+
+export interface TypingIndicatorEvent {
+  phone: string;
+  is_typing: boolean;
+}
