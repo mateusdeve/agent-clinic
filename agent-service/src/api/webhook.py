@@ -18,6 +18,8 @@ from src.api.session import SessionManager
 from src.api.evolution import EvolutionClient
 from src.api.orchestrator import handle_message
 from src.api.auth import router as auth_router
+from src.api.patients import router as patients_router
+from src.api.appointments import router as appointments_router
 from src.tools.followup import buscar_followups_pendentes, marcar_enviado, montar_mensagem
 
 logging.basicConfig(
@@ -37,8 +39,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Monta router de autenticacao
+# Monta routers de autenticacao e CRUD
 app.include_router(auth_router)
+app.include_router(patients_router)
+app.include_router(appointments_router)
 
 # Inicializa dependências
 session_manager = SessionManager(os.getenv("REDIS_URL", ""))

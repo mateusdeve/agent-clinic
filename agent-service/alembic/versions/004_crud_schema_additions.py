@@ -171,9 +171,75 @@ def upgrade() -> None:
         END $$
     """)
 
+    # ─── appointments: adiciona colunas CRUD do painel web ───────────────────
+    # data_agendamento, horario_agendamento: aliases para o painel (bot usa appointment_date/time)
+    # patient_id: FK para patients.id UUID (bot usava phone + patient_name)
+    # motivo_cancelamento: texto de motivo do cancelamento
+    op.execute("""
+        DO $$
+        BEGIN
+            IF NOT EXISTS (
+                SELECT 1 FROM information_schema.columns
+                WHERE table_name = 'appointments' AND column_name = 'data_agendamento'
+            ) THEN
+                ALTER TABLE appointments ADD COLUMN data_agendamento DATE;
+            END IF;
+        END $$
+    """)
+
+    op.execute("""
+        DO $$
+        BEGIN
+            IF NOT EXISTS (
+                SELECT 1 FROM information_schema.columns
+                WHERE table_name = 'appointments' AND column_name = 'horario_agendamento'
+            ) THEN
+                ALTER TABLE appointments ADD COLUMN horario_agendamento TIME;
+            END IF;
+        END $$
+    """)
+
+    op.execute("""
+        DO $$
+        BEGIN
+            IF NOT EXISTS (
+                SELECT 1 FROM information_schema.columns
+                WHERE table_name = 'appointments' AND column_name = 'patient_id'
+            ) THEN
+                ALTER TABLE appointments ADD COLUMN patient_id UUID REFERENCES patients(id);
+            END IF;
+        END $$
+    """)
+
+    op.execute("""
+        DO $$
+        BEGIN
+            IF NOT EXISTS (
+                SELECT 1 FROM information_schema.columns
+                WHERE table_name = 'appointments' AND column_name = 'motivo_cancelamento'
+            ) THEN
+                ALTER TABLE appointments ADD COLUMN motivo_cancelamento TEXT;
+            END IF;
+        END $$
+    """)
+
 
 def downgrade() -> None:
     """Reverte as alteracoes de schema da migration 004."""
+
+    # Remove colunas CRUD adicionadas a appointments
+    for col in ("motivo_cancelamento", "patient_id", "horario_agendamento", "data_agendamento"):
+        op.execute(f"""
+            DO $$
+            BEGIN
+                IF EXISTS (
+                    SELECT 1 FROM information_schema.columns
+                    WHERE table_name = 'appointments' AND column_name = '{col}'
+                ) THEN
+                    ALTER TABLE appointments DROP COLUMN {col};
+                END IF;
+            END $$
+        """)
 
     # Remove constraint de status ampliada
     op.execute("""
