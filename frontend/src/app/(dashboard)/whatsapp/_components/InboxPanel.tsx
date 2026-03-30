@@ -10,6 +10,7 @@ import type {
   NewMessageEvent,
   ConversationUpdatedEvent,
 } from "@/lib/types";
+import { ArrowLeft } from "lucide-react";
 import { ConversationList } from "./ConversationList";
 import { ConversationThread } from "./ConversationThread";
 import { PatientSidebar } from "./PatientSidebar";
@@ -129,8 +130,12 @@ export function InboxPanel() {
         </span>
       </div>
 
-      {/* Left column: Conversation list */}
-      <div className="w-80 border-r border-gray-200 flex flex-col shrink-0">
+      {/* Left column: Conversation list — hidden on mobile when conversation is selected */}
+      <div
+        className={`${
+          selectedPhone ? "hidden md:flex" : "flex"
+        } w-full md:w-80 border-r border-gray-200 flex-col shrink-0`}
+      >
         <div className="px-4 py-3 border-b border-gray-100 bg-white">
           <h1 className="text-sm font-semibold text-gray-900">WhatsApp</h1>
           {isLoadingList && (
@@ -148,10 +153,25 @@ export function InboxPanel() {
         />
       </div>
 
-      {/* Center column: Takeover bar + Message thread */}
-      <div className="flex-1 flex flex-col min-w-0">
+      {/* Center column: Takeover bar + Message thread — hidden on mobile when no conversation selected */}
+      <div
+        className={`${
+          selectedPhone ? "flex" : "hidden md:flex"
+        } flex-1 flex-col min-w-0`}
+      >
         {/* TakeoverBar inclui borda propria; botao Template fica sobreposto ao lado */}
         <div className="relative">
+          {/* Back button — mobile only */}
+          {selectedPhone && (
+            <button
+              type="button"
+              className="md:hidden absolute left-3 top-1/2 -translate-y-1/2 p-1 text-gray-600 hover:text-gray-800 z-10"
+              onClick={() => setSelectedPhone(null)}
+              aria-label="Voltar"
+            >
+              <ArrowLeft className="size-5" />
+            </button>
+          )}
           <TakeoverBar
             phone={selectedPhone}
             status={selectedStatus}
@@ -178,9 +198,9 @@ export function InboxPanel() {
         />
       </div>
 
-      {/* Right column: Patient sidebar */}
+      {/* Right column: Patient sidebar — always hidden on mobile */}
       {selectedPhone && (
-        <div className="w-80 border-l border-gray-200 shrink-0">
+        <div className="hidden md:block w-80 border-l border-gray-200 shrink-0">
           <PatientSidebar
             patientId={selectedPatientId}
             phone={selectedPhone}
