@@ -1,5 +1,5 @@
 ---
-status: complete
+status: diagnosed
 phase: 06-polish-hardening
 source: [06-01-SUMMARY.md, 06-02-SUMMARY.md, 06-03-SUMMARY.md]
 started: 2026-04-01T12:00:00Z
@@ -66,5 +66,11 @@ blocked: 0
   reason: "User reported: drawer opens but its not smooth. it just appears instantly"
   severity: minor
   test: 1
-  artifacts: []
-  missing: []
+  root_cause: "Conditional rendering ({open && ...}) mounts/unmounts drawer from DOM, defeating CSS transition. Drawer is born with translate-x-0 so transition-transform has nothing to animate from."
+  artifacts:
+    - path: "frontend/src/components/dashboard/MobileNav.tsx"
+      issue: "Line 57: {open && (...)} conditional mount prevents CSS transitions. Line 69: translate-x toggle unreachable because open is always true when JSX exists."
+  missing:
+    - "Render drawer unconditionally in DOM, toggle only CSS classes (translate-x-0 / -translate-x-full) based on open state"
+    - "Add duration-300 and ease-in-out classes for animation timing"
+    - "Use opacity + pointer-events for backdrop instead of conditional render"
