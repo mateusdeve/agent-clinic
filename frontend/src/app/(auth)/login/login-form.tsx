@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
@@ -18,7 +17,6 @@ type LoginFormData = z.infer<typeof loginSchema>;
 export function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   const {
     register,
@@ -42,7 +40,7 @@ export function LoginForm() {
       if (result?.error) {
         setError("Email ou senha incorretos");
       } else if (result?.ok) {
-        router.push("/home");
+        window.location.href = "/home";
       }
     } catch {
       setError("Ocorreu um erro. Tente novamente.");
