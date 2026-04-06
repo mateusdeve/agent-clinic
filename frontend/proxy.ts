@@ -3,6 +3,11 @@ import { auth } from "@/lib/auth";
 export const proxy = auth((req) => {
   const { pathname } = req.nextUrl;
 
+  // Skip API and static routes (defense-in-depth alongside matcher)
+  if (pathname.startsWith("/api/") || pathname.startsWith("/_next/")) {
+    return;
+  }
+
   // Protected routes: everything under (dashboard) group
   const isProtected =
     pathname.startsWith("/home") ||
